@@ -1,0 +1,21 @@
+!!!
+%html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en', :lang => 'en'}
+
+  %head
+    %meta{'http-equiv' => 'content-type', :content => 'text/html;charset=UTF-8'}
+    %meta{'http-equiv' => 'content-language', :content => 'en'}
+    %meta{:name => 'description', :content => meta_description}
+    %meta{:name => 'keywords', :content => meta_keywords}
+    %title= html_title(@rip)
+    %link{:rel => 'search', :type => 'application/opensearchdescription+xml', :href => '/opensearch_desc.xml', :title => 'movierok.org'}
+    %link{:rel => 'alternate', :type => 'application/rss+xml', :href => rss_url, :title => 'movierok.org feed'}
+    = stylesheet_link_tag 'movierok'
+
+  %body
+    = include_all_javascript_files    
+    #container
+      #header= render 'layouts/header'
+      #box
+        #content= yield
+      #footer= render 'layouts/footer'
+      %br{:style => 'clear: both'}

@@ -1,0 +1,17 @@
+- departments = @rip.movie.departments.group_by(&:role)
+  
+%div.rip_info_box.department_box
+  - if departments[0]
+    %h4= $roles[0] +'s'
+    %ul
+      - departments[0].each do |dep|
+        %li= search_link :person, dep.person.name
+
+%div.rip_info_box.department_box
+  - departments = @rip.movie.departments.group_by(&:role)
+  - ($roles.length - 1).times do |i|
+    - if departments[i+1]
+      %h4= $roles[i+1] +'s'
+      %ul
+        - departments[i+1].each do |dep|
+          %li= search_link :person, dep.person.name

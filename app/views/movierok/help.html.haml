@@ -1,0 +1,33 @@
+%div{:style => 'margin: 20px'}
+ 
+  - unless flash[:notice].blank?
+    %p
+      %strong= flash[:notice] 
+    %br
+
+  %h2 3 steps
+  %br
+  %ol
+    %li 
+      %strong
+        install the 
+        = link_to_firefox_extension('0.1.6')
+        %br
+        and select your movie directory
+      %br 
+      movierok will recognize all movies it already knows    
+    %li 
+      %strong
+        =link_to 'add', new_rip_url
+        the remaining ones
+      %br
+      adding a rip only takes some seconds
+    %li 
+      %strong use movierok
+      %br
+      you can look through your movies on your
+      =link_to 'rips page', user_rips_url(logged_in_user)
+      %br
+      you can search and filter them
+      %br 
+      and start them from your browser

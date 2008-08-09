@@ -1,0 +1,28 @@
+%div{:style => 'margin: 20px'}
+
+  %h1 stats
+
+  %table#users_table{:summary => "This table shows all users on movierok, shows how many rips they've got and how many they've created"}
+    %caption users and rips on movierok
+    %tr
+      %th
+      %th
+      %th got
+      %th created
+      %th created in %
+    - total_rips = Rip.count
+    - @users.each_with_index do |user, index|
+      %tr
+        %th== #{index+1}.
+        %th{:scope => 'row', :style => 'text-align:left'}
+          = link_to user.name, user_rips_path(user)
+        %td= Rip.get(:user => user.name).total_entries
+        %td= user.created_rips_count
+        %td= user.created_rips_in_percent(total_rips)
+    %tr
+      %td
+      %td{:scope => 'row'} total
+      %td
+      %td
+        %strong= total_rips
+      %td

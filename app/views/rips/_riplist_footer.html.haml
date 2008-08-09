@@ -1,0 +1,23 @@
+#ripslist_footer
+
+  %span#loaded_rips_info
+    %strong#loaded_rips_count= @rips.size
+    == of #{whose_rips}
+    %strong= total_rips_count @rips
+    rips loaded
+  
+  %span#riplist_navigation
+    %span
+      %strong sort
+      = link_to 'date', list_url(:sort => nil), :class => 'rip_list_link' + selected_link(:sort, nil)
+      = link_to 'title', list_url(:sort => 'title'), :class => 'rip_list_link' + selected_link(:sort, 'title')
+
+    %span
+      %strong order
+      = link_to 'up', list_url(:order => nil), :class => 'rip_list_link' + selected_link(:order, nil)
+      = link_to 'down', list_url(:order => 'down'), :class => 'rip_list_link' + selected_link(:order, 'down')
+
+    %span
+      %strong view
+      = link_to 'list', list_url, :class => selected_link(:action, 'index')
+      = link_to 'covers', covers_url, :class => selected_link(:action, 'covers')

@@ -1,0 +1,54 @@
+.login_box{:style => 'float:left; width: 300px; padding: 45px; '}
+  %h2 login
+  - form_tag :controller => 'sessions', :action => 'create' do
+    %label.blocklabel
+      name
+      = text_field_tag 'name'
+    %label.blocklabel
+      password
+      = password_field_tag 'password'
+    %p
+      %br
+      = submit_tag 'login'
+  %br
+  %br
+
+
+
+  %h3 lost password?
+   
+  - unless flash[:notice].blank?
+    %p= flash[:notice]
+   
+  - form_tag lost_password_url do
+    %label.blocklabel
+      email
+      = text_field_tag 'email'
+    %p
+      %br
+      = submit_tag 'get new password'
+
+.login_box{:style => 'float:left; width: 300px; padding: 45px; margin-left: 10px;'}
+  %h2 sign up
+  %br
+  %p don't have an account yet?
+  = error_messages_for :user
+  - form_for(@user) do |f|
+    %label.blocklabel
+      name
+      = f.text_field :name
+    %label.blocklabel
+      password
+      = f.password_field :password
+    %label.blocklabel
+      email
+      %small (optional)
+      = f.text_field :email
+    %p
+      %br
+      = f.submit 'ok, sign me up'
+
+
+%br{:style => 'clear:both'}
+
+

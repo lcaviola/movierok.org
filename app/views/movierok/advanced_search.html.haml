@@ -1,0 +1,48 @@
+#advanced_search
+
+  .select_box
+    genres
+    %ul{:class => 'search-genre'}
+      - for genre in Genre.find(:all)
+        %li= genre.name
+
+  .select_box
+    languages
+    %ul{:class => 'search-lang'}
+      - for lang in Language.find_all_by_frequency(:only_used => true)
+        %li.flag{:class => 'flag-' + lang.iso_3166 + ' paste-' + lang.iso_639_1}= lang.name
+
+  .select_box
+    countries
+    %ul{:class => 'search-country'}
+      - for country in Country.find_all_by_frequency(:only_used => true)
+        %li.flag{:class => 'flag-' + country.iso_3166}= country.name.gsub(/ /, '&nbsp;')
+
+  .select_box
+    releasers
+    %ul{:class => 'search-releaser'}
+      - for releaser in Rip.find_all_releasers(10)
+        %li= releaser
+
+  .select_box
+    types
+    %ul{:class => 'search-type'}
+      - for type in $types
+        %li= type
+
+  .select_box
+    %p more
+    %p
+      %strong> person:
+      %em julia
+    %p
+      %strong> title:
+      %em gump
+    %p
+      %strong> sub:
+      %em en
+    %p
+      %strong> user:
+      %em doofy
+    %br
+    %p= link_to 'search syntax', 'http://lucene.apache.org/java/docs/queryparsersyntax.html'

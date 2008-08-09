@@ -1,0 +1,6 @@
+.select_box
+  = type
+  %ul{:id => type + '_selection'}
+    - for lang in Language.find_all_by_frequency
+      %li.flag{:class => 'flag-' + lang.iso_3166 + selected_lang_class(type, @rip, lang)}<
+        = lang.name + hidden_language_field(type, @rip, lang)

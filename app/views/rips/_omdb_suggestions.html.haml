@@ -1,0 +1,7 @@
+#omdb_suggestions_box{:style => 'display: none'}
+  %form#omdb_search_form{:action => 'http://www.omdb.org/search/movies', :method => 'post', :target => '_blank', :onsubmit => 'return false'} 
+    search for movie title
+    %input#omdb_search_field{:type => 'text', :name => 'search[text]'}
+    %input#omdb_search_button{:value => 'search', :type => 'submit'}
+  #omdb_suggestion_container
+    #omdb_suggestions &nbsp;

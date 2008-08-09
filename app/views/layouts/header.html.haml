@@ -1,0 +1,12 @@
+%ul#menu
+  %li= link_to 'my', new_user_path, :title => 'login', :id => 'my_rips_link', :class => 'rip_list_link'
+  %li= link_to 'all', rips_path, :class => 'rip_list_link', :title => 'show all rips on movierok'
+
+#page_title
+  =link_to '<span>movierok</span>', root_url, :id => 'page_title'
+  %small beta
+#search_box
+  - form_tag rips_path, :id => 'search_form', :onsubmit => 'submit_search();return false' do 
+    = text_field_tag 'search', params[:search], :accesskey => 's'
+    = submit_tag 'search', :name => nil, :id => 'search_button'
+    = link_to_remote 'more', :url => advanced_search_url, :method => :get, :update => 'header', :position => 'bottom', :complete => 'init_advanced_search()', :after => 'this.onclick = function() { $("advanced_search").toggle()}'

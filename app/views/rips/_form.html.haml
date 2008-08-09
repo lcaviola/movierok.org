@@ -1,0 +1,64 @@
+= error_messages_for 'rip'
+= javascript_tag "var releasers = '#{Rip.find_all_releasers.join(' ')}'"
+
+- unless logged_in_user.unknown_parts.empty?
+  %p{:style => 'margin-top: 10px'}
+    %span{:style => 'float:left'} choose a file and tell movierok to which movie it belongs
+    = link_to_function 'hide samples', 'hide_samples()', :style => 'float:right'
+  %ol#unknown_parts
+    - parts = unknown_parts(@rip)
+    - unless parts.empty?
+      = render :partial => 'part', :collection => parts, :locals => {:unknown => true}
+- else
+  %div you don't have any unknown part. you can't add a new rip.
+
+#rip_info{rip_info_attrs(@rip)}
+  %ol#parts
+    - parts = (@rip.part_files.nil?) ? @rip.parts : @rip.part_files
+    = render :partial => 'part', :collection => parts, :locals => {:unknown => false}
+  = render :partial => 'omdb_suggestions'   
+  
+  - form_for @rip, :html => {:id => 'rip_form', :onsubmit => 'insert_parts_into_form(this)'} do |f|                
+    .rip_info_box
+      %div
+        %label{:for => 'rip_omdb'} omdb id
+        = f.text_field 'omdb', :class => 'text_field'
+        = hint "Use the omdb search above and click on the correct movie. If your movie doesn't appear you might have to create it on #{link_to'omdb.org', 'http://www.omdb.org'}."
+      %div
+        %label{:for => 'rip_type_id'} type
+        = f.select 'type_id', types_as_array, :prompt => '&nbsp;'
+        = hint 'Do you know what kind of rip it is?'
+      %div
+        %label{:for => 'rip_releaser'} releaser
+        = f.text_field 'releaser', :class => 'text_field'
+        #rip_releaser_auto_complete.auto_complete
+        = auto_complete_field 'rip_releaser', :url => releasers_rips_url, :method => :get
+        = hint 'Who published this rip? <small>maybe some release group</small>'
+      %div
+        %label{:for => 'rip_released_at'} release date
+        = f.text_field 'released_at', :class => 'text_field'
+        = hint 'When was the rip released?'
+      %div
+        %label{:for => 'rip_release_comment'} comment
+        = f.text_area 'release_comment'
+        = hint 'Any additional note?', 'margin-top: -60px'
+    .rip_info_box{:style => 'margin-left: 30px; margin-top: 25px'}
+      %div
+        = render :partial => 'languages', :locals => {:type => 'language'}
+        =hint 'Choose  the correct language(s) spoken in this rip. <small>not original language</small>', 'margin-top: -120px; margin-left: 200px'
+      %div
+        = render :partial => 'languages', :locals => {:type => 'subtitle'}
+        =hint 'Does this rip have any subtitles? <small>no external files</small>', 'margin-top: -120px; margin-left: 200px'
+    .rip_info_box{:style => 'margin-left: 30px; width: 310px; margin-top: 46px'}
+      %h4 Before Saving
+      %br
+      %ul
+        %li Have you added all files?<br />(e.g. CD 1, CD 2)
+        %li Are the file(s) you've added real movies? (no samples, etc)
+        %li Are they in the correct order?
+        %li Have you selected the right movie? (omdb id)
+        %li If you are not sure about the other fields, just leave them empty.
+      %br
+      = submit_tag 'save this rip', :style => 'margin-left: 30px;margin-top: 5px'
+
+  %br{:style => 'clear: both'}

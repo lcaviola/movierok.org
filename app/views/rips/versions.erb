@@ -1,0 +1,43 @@
+<h1>version history of rip <%= link_to "##{@rip.id}", rip_path(@rip) %></h1>
+<ul id="version_history_list">
+  <% @rip.versions.reverse.each_with_index do |version, index| %>
+    <li <%= "style='border-left: #FFEFEF solid 5px'" if @rip.version == (@rip.versions.length - index) %>>
+      <dl class="table_like">
+        <dt>version</dt>
+        <dd>
+          <strong>#<%= @rip.versions.length - index %></strong>
+          <% unless @rip.version == (@rip.versions.length - index) %>
+          <%= link_to 'restore', restore_rip_path(@rip, :version => version.version), :method => :put if logged_in_user.has_rip?(@rip) %>
+          <% end %>
+        </dd>
+        <%= dl_item 'editor', User.find(version.editor_id).name %>
+        <%= dl_item 'edited at', version.updated_at %>
+                    
+        <%= dl_item 'movie', Movie.find(version.movie_id).title %>
+        <% type = $types[version.type_id - 1] if version.type_id %>
+        <%= dl_item 'type', type if type %>
+        <%= dl_item 'releaser', version.releaser %>
+        <%= dl_item 'released at', version.released_at %>
+        <%= dl_item 'comment', version.release_comment %>
+                    
+        <% languages = Language.find_all_by_id(version.language_ids.split(';')) %>
+        <%= dl_item 'languages', languages.collect(&:name).to_sentence %>
+        <% subtitles = Language.find_all_by_id(version.subtitle_ids.split(';')) %>
+        <%= dl_item 'subtitles', subtitles.collect(&:name).to_sentence %>
+                    
+        <dt>parts</dt>
+        <dd>
+          <% parts = Part.find_all_by_id(version.part_ids.split(';')) %>
+          <ol>
+            <% for part in parts %>
+              <li><%= part.check_sum %> <%= part_information(part) %></li>
+            <% end %>
+          </ol>
+        </dd>
+      
+      
+      </dl>
+      <br style="clear:both" />
+    </li>
+  <% end %>
+</ul>

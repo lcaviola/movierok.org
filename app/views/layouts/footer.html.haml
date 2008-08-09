@@ -1,0 +1,19 @@
+%div
+
+  %div{:style => 'float:left'}
+    &copy; movierok.org 2008 &mdash; Content is licensed under the terms of the 
+    = link_to 'Creative Commons License', 'http://creativecommons.org/licenses/by-nc/3.0/', :rel => 'license'
+ 
+  %div{:style => 'float:right'}
+    = link_to 'about', about_url
+    &bull;
+    = link_to 'stats', users_url
+    &bull;
+    %span.only_when_not_logged_in
+      = link_to 'login/signup', new_user_path
+    %span.only_when_logged_in
+      = link_to 'add rip', new_rip_path
+      &bull;
+      = link_to 'settings', '/', :id => 'settings_link'
+      &bull;
+      = link_to 'logout', '/logout'

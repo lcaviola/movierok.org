@@ -1,0 +1,67 @@
+%div
+  %h1{:style => 'float: left'}
+    = link_to @rip.movie.title, rip_path(@rip)
+    - if @rip.movie.year
+      == (#{@rip.movie.year})
+
+  %div{:style => 'float:right'}
+    %span.play_link= @rip.parts.collect(&:check_sum).join('+')
+    = link_to 'omdb', @rip.movie.omdb_url
+    = link_to 'edit', edit_rip_path(@rip), :class => 'only_when_logged_in only_when_owner'
+    = link_to 'versions', versions_rip_path(@rip), :class => 'only_when_logged_in'
+
+  %br{:style => 'clear:both'}
+
+= image_tag @rip.movie.image_url, :class => 'rip_info_box'
+
+.rip_info_box
+  .small_info_box{:style => 'width: 160px'}
+    %h3 general
+    %dl
+      = dl_item 'type', search_link(:type, @rip.type_as_text) if @rip.type_as_text
+      = dl_item 'releaser', search_link(:releaser, @rip.releaser) unless @rip.releaser.blank?
+      = dl_item 'released at', h(@rip.released_at)
+      = dl_item 'comment', h(@rip.release_comment)
+      = dl_item 'language',  (@rip.languages.collect {|l| search_link :lang, l.name, l.iso_639_1 }.to_sentence)
+      = dl_item 'subtitle', (@rip.subtitles.collect {|l| search_link :sub, l.name, l.iso_639_1 }.to_sentence)
+      = dl_item 'created', @rip.created_at
+      = dl_item 'last update', @rip.updated_at unless @rip.updated_at == @rip.created_at
+      = dl_item 'parts', @rip.parts.collect{|p| (part_information(p)) }.join("<br />")
+
+  - if part = @rip.parts.first
+    .small_info_box
+      %h3 video
+      %dl
+        = dl_item 'quality', '<span id="video_rating">' + render(:partial => 'ratings/rating', :locals => {:type => :video}) +'</span>'
+        = dl_item 'encoding', h(part.video_encoding)
+        = dl_item 'frame rate', h(part.video_frame_rate_in_words)
+        = dl_item 'resolution', h(part.video_resolution)
+
+    .small_info_box
+      %h3 audio
+      %dl
+        = dl_item 'quality', '<span id="audio_rating">' + render(:partial => 'ratings/rating', :locals => {:type => :audio}) +'</span>'
+        = dl_item 'encoding', h(part.audio_encoding)
+        = dl_item 'bit rate', h(part.audio_bit_rate_in_words)
+        = dl_item 'sample rate', h(part.audio_sample_rate_in_words)
+        = dl_item 'channels', h(part.audio_channels_in_words)
+
+    .small_info_box{:style => 'width: 130px'}
+      %h3 users
+      %ul
+        - for u in @rip.users
+          %li= link_to u.name, user_rips_path(u)
+
+%div{:style => 'clear: both'}
+  %dl.rip_info_box{:style => 'width: 300px'}
+    = dl_item 'genre', (@rip.movie.genres.collect {|g| search_link :genre, g.name }.to_sentence)
+    = dl_item 'countries', countries_information(@rip.movie)
+    = dl_item 'description', h(@rip.movie.description)
+
+  = render :partial => 'departments'
+
+%div{:style => 'clear:both'}
+  - if @rip.movie.rips.length > 1
+    %h4 other rips
+    %ul#rips
+      = render :partial => @rip.movie.rips - [@rip]

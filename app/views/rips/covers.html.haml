@@ -1,0 +1,10 @@
+= image_flow @rips, params[:search]
+#imageflow
+  #loading
+    %img{:src => '/images/loading.gif', :alt => 'loading'}
+  #images
+    = render 'rips/covers.js.haml'
+  #captions
+  #scrollbar
+    #slider
+= render :partial => 'rips/riplist_footer'

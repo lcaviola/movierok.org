@@ -1,0 +1,13 @@
+!!! XML
+%urlset{:xmlns => 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+  %url
+    %loc http://movierok.org/about
+    %priority 1.0
+  
+  %url
+    %loc http://movierok.org/rips
+    %priority 1.0
+
+  - for rip in @rips
+    %url
+      %loc= rip_url(rip)

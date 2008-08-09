@@ -1,0 +1,19 @@
+<% average = @rip.send("#{type}_rating") %>
+<% rating_meanings = %w{bad ok good} %>
+<% 3.times do |i|%>
+
+  <% if average > (i) and average < (i+1)  
+    star_class = "half_gray_star" 
+  else if average >= (i+1)  
+      star_class = "yellow_star" 
+    else 
+      star_class = "gray_star" 
+    end  
+  end %>
+
+  <%= link_to_remote "<span>#{i+1}</span>", 
+    { :url => rip_ratings_url(@rip, 'rating[rating]' => i+1, 'rating[type_id]' => $ratings.index(type) + 1),
+    :method => :post, :update => type.to_s + '_rating'
+  }, :id => "#{type}_rating_#{i+1}", :class => "#{type}_rating #{star_class}", :title => rating_meanings[i] %>
+
+<% end %>

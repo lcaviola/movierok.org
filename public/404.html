@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+    <head>
+        <meta content='text/html;charset=UTF-8' http-equiv='content-type' />
+        <meta content='en' http-equiv='content-language' />
+        <meta content="movierok is an open database for movie rips. movierok will find and organize all rips you've got and allows you to browse, search, and start them in your webbrowser." name='description' />
+        <meta content='rip, movie, film, database, open, moviefile, movie file' name='keywords' />
+        <title>movierok.org</title>
+        <link href='/opensearch_desc.xml' rel='search' title='movierok.org' type='application/opensearchdescription+xml' />
+        
+        <link href='/rips.rss' rel='alternate' title='movierok.org feed' type='application/rss+xml' />
+        <link href="/stylesheets/movierok.css?1218118012" media="screen" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <script src="/javascripts/all.js?1218118045" type="text/javascript"></script>
+        <div id='container'>
+            <div id='header'>
+                <ul id='menu'>
+                    
+                    <li><a href="/users/new" class="rip_list_link" id="my_rips_link" title="login">my</a></li>
+                    <li><a href="/rips" class="rip_list_link" title="show all rips on movierok">all</a></li>
+                </ul>
+                <a href="/" id="page_title"><span>movie</span>rok</a>
+                <div id='search_box'>
+                    <form action="/rips" id="search_form" method="post" onsubmit="submit_search();return false">
+                        <input accesskey="s" id="search" name="search" type="text" />
+                        
+                        <input id="search_button" type="submit" value="search" />
+                        <a href="#" onclick="new Ajax.Updater('header', '/advanced_search', {asynchronous:true, evalScripts:true, insertion:Insertion.Bottom, method:'get', onComplete:function(request){init_advanced_search()}}); this.onclick = function() { $(&quot;advanced_search&quot;).toggle()}; return false;">more</a>
+                    </form>
+                </div>
+            </div>
+            <div id='box'>
+                <div id='content' style="margin: 30px">
+                    <div class="dialog">
+                        <h1>The page you were looking for doesn't exist.</h1>
+                        <p>You may have mistyped the address or the page may have moved.</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id='footer'>
+                <div>
+                    <div style='float:left'>
+                        
+                        &copy; movierok.org 2008 &mdash; Content is licensed under the terms of the
+                        <a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">Creative Commons License</a>
+                    </div>
+                    <div style='float:right'>
+                        <a href="/about">about</a>
+                        &bull;
+                        <a href="/users">stats</a>
+                        
+                        &bull;
+                        <span class='only_when_not_logged_in'>
+                            <a href="/users/new">login/signup</a>
+                        </span>
+                        <span class='only_when_logged_in'>
+                            <a href="/rips/new">add rip</a>
+                            &bull;
+                            <a href="/" id="settings_link">settings</a>
+                            
+                            &bull;
+                            <a href="/logout">logout</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <br style='clear: both' />
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,9 @@
+#rips_box
+  %ul#rips
+    = render :partial => 'rip', :collection => @rips
+  #pagination<
+    = will_paginate @rips
+  = auto_pagination(@rips, params[:search])
+  
+= javascript_tag "resize_rips_box()"
+= render :partial => 'rips/riplist_footer'
