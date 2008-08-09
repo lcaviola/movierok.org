@@ -17,15 +17,15 @@ class Rip < ActiveRecord::Base
   after_save :update_indexes
     
   acts_as_ferret :fields => {
-    :title => {},
-    :person => {},
-    :releaser => {},
-    :genre => {:index => :untokenized},
-    :country => {:index => :untokenized},
-    :user => {:index => :untokenized},
-    :lang => {:index => :untokenized},
-    :sub => {:index => :untokenized},
-    :type => {:index => :untokenized}
+    :title => {:store => :yes},
+    :person => {:store => :yes},
+    :releaser => {:store => :yes},
+    :genre => {:store => :yes, :index => :untokenized},
+    :country => {:store => :yes, :index => :untokenized},
+    :user => {:store => :yes, :index => :untokenized},
+    :lang => {:store => :yes, :index => :untokenized},
+    :sub => {:store => :yes, :index => :untokenized},
+    :type => {:store => :yes, :index => :untokenized}
   }
   acts_as_versioned
   
