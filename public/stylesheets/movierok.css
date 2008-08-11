@@ -80,17 +80,22 @@ body {
 }
 
 #page_title {
-    display: block;
     float: left;
-    margin-left: 5px;
-    color: white;
-    margin-top: -7px;
-    text-decoration: none;
+    margin-left: 17px;
+    margin-top: -10px;
     font-weight: bold;
 }
 
-#page_title span {
+#page_title a {
+   display: block;
+    float: left;
+    color: white;
+    text-decoration: none;
     font-size: 43px;
+    margin-top: -5px;
+}
+
+#page_title small {
 }
 
 /**/

@@ -3,7 +3,7 @@
   %li= link_to 'all', rips_path, :class => 'rip_list_link', :title => 'show all rips on movierok'
 
 #page_title
-  =link_to '<span>movierok</span>', root_url, :id => 'page_title'
+  =link_to 'movierok', root_url
   %small beta
 #search_box
   - form_tag rips_path, :id => 'search_form', :onsubmit => 'submit_search();return false' do 
