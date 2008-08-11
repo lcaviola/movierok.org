@@ -74,49 +74,6 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 
-# Include your application configuration below
-
-
-## backup script. run @ script/console
-#rips = Rip.find :all
-#File.open('backup.txt', 'w') do |f|
-#  for rip in rips
-#    releaser = ''
-#    releaser = ", :releaser => '#{rip.releaser}'" unless rip.releaser.blank?
-#    type_id = ''
-#    type_id = ", :type_id => '#{rip.type_id}'" unless rip.type_id.blank?
-#    f << "r = Rip.new(:omdb => #{rip.movie.omdb}#{releaser}#{type_id}, :editor_id => #{rip.editor_id})\n"    
-#    f << "ActiveRecord::Base.record_timestamps = false\n"
-#    f << "r.created_at = '#{rip.created_at}'\n"
-#    f << "r.updated_at = '#{rip.updated_at}'\n"
-#    for lang in rip.languages
-#      f << "r.languages << Language.find(#{lang.id})\n"
-#    end
-#    for sub in rip.subtitles
-#      f << "r.subtitles << Language.find(#{sub.id})\n"
-#    end
-#    for part in rip.parts
-#      f << "r.parts << Part.create(:check_sum => '#{part.check_sum}', :number => #{part.number})\n"
-#    end
-#    f << "ActiveRecord::Base.record_timestamps = true\n"
-#    f << "r.save\n"
-#    f << "sleep(1)\n"
-#  end
-#end
-
-# language omdb-extract
-#langs = Language.find :all
-#File.open('languages.txt', 'w') do |f|
-#  for lang in langs
-#    f << "l = Language.create(:omdb => #{lang.id}, :iso_639_1 => '#{lang.iso_639_1}', :iso_639_2 => '#{lang.iso_639_2}', :iso_639_3 => '#{lang.iso_639_3}', :name => '#{lang.english_name}')\n"    
-#  end
-#end
-
-#File.open('langs.txt', 'w') do |f|
-#  for lang in Language.find(:all)
-#    f << "cp 1px.png #{lang.iso_639_1}.png\n" unless File.exists?("public/images/flag_icons/#{lang.iso_639_1}.png")
-#  end
-#end
 
 ##UPDATE FROM OMDB
 #movies = Movie.find(:all, :order => :updated_at, :limit => 100)
@@ -177,4 +134,5 @@ $genres = {
 $types = ['DVD-Rip', 'Cam-Rip', 'Telesync', 'Screener', 'R5', 'Telecine', 'Workprint']
 $ratings = [:video, :audio, :movie]
 
+# don't forget to remove the cache when changing this
 $compatible_ff_ext_versions = ['0.1.6']
