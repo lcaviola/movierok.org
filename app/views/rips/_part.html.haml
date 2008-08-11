@@ -1,4 +1,4 @@
-%li.part<
+%li.part{:class => ("no_movie" if not part.real_movie_file?)}<
   - display_none_remove_link = (unknown) ? '' : 'display: none'
   - display_none_add_link = (unknown) ?  'display: none' : ''
   = link_to_function '<span>&nbsp;</span>', 'add_part(this)', :class => 'add_part_link', :style => display_none_remove_link
