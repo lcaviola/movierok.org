@@ -3,9 +3,6 @@ class RatingsController < ApplicationController
   verify :xhr => true, :redirect_to => { :controller => 'movierok' }, :except => :index
   verify :params => :rip_id, :redirect_to => { :controller => 'movierok' }, :except => :index
   
-  after_filter :delete_cache, :except => :index
- 
-  
   def create
     @rip = Rip.find(params[:rip_id])
     if @rip
@@ -21,14 +18,6 @@ class RatingsController < ApplicationController
         render :text => '<span class="info">you don\'t have this rip</span>'
       end
     end
-  end
-  
-  
-  private
-  def delete_cache
-    expire_action rip_url(@rip)
-    expire_fragment("rips/fragments/#{@rip.id}")
-    RipSweeper.delete_ratings(logged_in_user)
   end
   
 end

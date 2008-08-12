@@ -7,7 +7,7 @@ module ApplicationHelper
     title = h("rips with #{params[:search]}") if params[:search]
     title = 'rips' if @rips and params[:search].blank?
     title = 'new rip' if @rip and @rip.new_record?
-    title << ' - ' unless title.blank?
+    title << ' on ' unless title.blank?
     title << 'movierok.org'
   end
   

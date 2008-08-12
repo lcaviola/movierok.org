@@ -4,7 +4,7 @@ class RipsController < ApplicationController
   before_filter :set_editor_id, :only => [:create, :update]
   before_filter :authorize_as_rip_owner, :only => [:edit, :update, :restore]
   
-  caches_action :show # TODO: page cache here. prob: update, delete etc. takes cache files
+  caches_page :show
   cache_sweeper :rip_sweeper, :only => [:update, :create, :restore]
   
   # GET /rips

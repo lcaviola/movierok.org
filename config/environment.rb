@@ -21,7 +21,7 @@ Rails::Initializer.run do |config|
   config.load_paths += %W(#{RAILS_ROOT}/vendor/plugins/acts_as_versioned/lib)
   config.load_paths += %W(#{RAILS_ROOT}/app/sweepers)
   
-  config.action_controller.page_cache_directory = RAILS_ROOT + "/public/cache/"
+  #config.action_controller.page_cache_directory = RAILS_ROOT + "/public/cache/"
   
   # Settings in config/environments/* take precedence over those specified here
   
