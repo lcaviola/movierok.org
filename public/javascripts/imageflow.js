@@ -63,9 +63,16 @@ var if_url = ""
 var if_refreshed_last_time = false
 var if_is_loading = false
 
+
+function init_image_flow(total_items, url, parameters) {
+  if_total_pages = Math.ceil(total_items / 60)
+  if_url = url
+  if_additional_parameters = parameters
+}
+
 function get_more_content() {
     if_nextpage++
-    var params = "page=" + if_nextpage + if_additional_parameters
+    var params = "page=" + if_nextpage + '&' + if_additional_parameters
     if (if_nextpage <= if_total_pages) {
         new Ajax.Request(if_url, {asynchronous:true, method: 'get',
             onComplete: add_more_content, onFailure: failure, parameters: params})

@@ -19,18 +19,18 @@ var ap_rips = null
  * 4 - preloadDistanceFromButtom - default: 20
  * 5 - additionalGet - default:''
  */
-function append_auto_pagnation(page, total_pages){
+function append_auto_pagnation(page, total_items){
     if(arguments.length > 2){
-        ap_nextpage = arguments[2];
+        ap_nextpage = arguments[2]
     }
     if (arguments.length > 3) {
-        ap_preload_distance_from_bottom = arguments[3];
+        ap_preload_distance_from_bottom = arguments[3]
     }
     if (arguments.length > 4) {
-        ap_additional_parameters = "&"+arguments[4];
+        ap_additional_parameters = "&"+arguments[4]
     }
     ap_page = page;
-    ap_total_pages = total_pages;
+    ap_total_pages = Math.ceil(total_items / 30)
     ap_rp = $('rips_box')
     ap_rips = $('rips')
     ap_timer = window.setInterval("updatePage()", ap_update_interval);

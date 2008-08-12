@@ -14,7 +14,6 @@ class RipSweeper < ActionController::Caching::Sweeper
   end
   
   def clear_cache(rip)
-    RipSweeper.delete_ratings rip.users
     expire_cache_for_rips rip.movie.rips
   end
   
