@@ -27,7 +27,7 @@ module RipsHelper
   def cover_alt_text(rip)
     res = "&lt;a href=&quot;#{rip_url(rip)}&quot;&gt;#{h rip.movie.title}&lt;/a&gt;"
     res << "&lt;p&gt;#{rip.movie.year} &lt;br/&gt; &lt;span class=&quot;play_link&quot;&gt;"
-    res << "#{rip.parts.collect(&:check_sum).join('+')}&lt;/span&gt;&lt;/p&gt;"
+    res << "#{rip.parts.collect(&:mrokhash).join('+')}&lt;/span&gt;&lt;/p&gt;"
     res
   end
 

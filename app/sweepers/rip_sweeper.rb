@@ -26,7 +26,7 @@ class RipSweeper < ActionController::Caching::Sweeper
   
   def expire_cache_for_rip(rip)
     expire_page rip_path(rip)
-    expire_fragment("rips/fragments/#{rip.id}")
+    expire_fragment(rip)
   end
   
 end

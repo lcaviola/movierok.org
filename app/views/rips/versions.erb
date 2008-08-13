@@ -30,7 +30,7 @@
           <% parts = Part.find_all_by_id(version.part_ids.split(';')) %>
           <ol>
             <% for part in parts %>
-              <li><%= part.check_sum %> <%= part_information(part) %></li>
+              <li><%= part.mrokhash %> <%= part_information(part) %></li>
             <% end %>
           </ol>
         </dd>

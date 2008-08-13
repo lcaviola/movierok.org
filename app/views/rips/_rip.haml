@@ -1,15 +1,11 @@
-%li{:class => alternating_item_background}<
-
-  = link_to image_tag(rip.movie.image_url('small')), rip_path(rip)
-
-  %h4>= rip_title_with_year(rip)
-  %span.play_link= rip.parts.collect(&:check_sum).join('+')
-
-  - unless rip.movie.actors.empty?
-    %p>= 'with ' + rip.movie.actors[0..3].collect { |actor| search_link :person, actor.name }.to_sentence
-
-  - unless rip.movie.directors.empty?
-    %p>= 'directed by ' + search_link(:person, rip.movie.directors.first.name)
-
-  - unless rip.releaser.blank?
-    %p>= 'released by ' + search_link(:releaser, rip.releaser)
+- cache(rip) do
+    %li{:class => alternating_item_background}<
+    = link_to image_tag(rip.movie.image_url('small')), rip_path(rip)
+    %h4>= rip_title_with_year(rip)
+    %span.play_link= rip.parts.collect(&:mrokhash).join('+')
+    - unless rip.movie.actors.empty?
+      %p>= 'with ' + rip.movie.actors[0..3].collect { |actor| search_link :person, actor.name }.to_sentence
+    - unless rip.movie.directors.empty?
+      %p>= 'directed by ' + search_link(:person, rip.movie.directors.first.name)
+    - unless rip.releaser.blank?
+      %p>= 'released by ' + search_link(:releaser, rip.releaser)

@@ -5,7 +5,7 @@
       == (#{@rip.movie.year})
 
   %div{:style => 'float:right'}
-    %span.play_link= @rip.parts.collect(&:check_sum).join('+')
+    %span.play_link= @rip.parts.collect(&:mrokhash).join('+')
     = link_to 'omdb', @rip.movie.omdb_url
     = link_to 'edit', edit_rip_path(@rip), :class => 'only_when_logged_in only_when_owner'
     = link_to 'versions', versions_rip_path(@rip), :class => 'only_when_logged_in'

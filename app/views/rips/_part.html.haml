@@ -3,5 +3,5 @@
   - display_none_add_link = (unknown) ?  'display: none' : ''
   = link_to_function '<span>&nbsp;</span>', 'add_part(this)', :class => 'add_part_link', :style => display_none_remove_link
   = link_to_function '<span>&nbsp;</span>', 'remove_part(this)', :class => 'remove_part_link', :style => display_none_add_link
-  %span.check_sum>= part.check_sum
-  %input{:type => 'hidden', :name => 'rip[check_sums][]', :value => part.check_sum}>
+  %span.mrokhash>= part.mrokhash
+  %input{:type => 'hidden', :name => 'rip[mrokhashes][]', :value => part.mrokhash}>

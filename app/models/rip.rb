@@ -29,7 +29,7 @@ class Rip < ActiveRecord::Base
   }
   acts_as_versioned
   
-  attr_accessor :omdb, :check_sums, :part_files, :language_ids, :subtitle_ids, :changed_association
+  attr_accessor :omdb, :mrokhashes, :part_files, :language_ids, :subtitle_ids, :changed_association
 
  
   def omdb
@@ -153,8 +153,8 @@ class Rip < ActiveRecord::Base
     Rip.find_with_ferret(search, options)
   end
   
-  def self.find_by_check_sum(check_sum)
-    self.find(:all, :include => :parts, :conditions => ['parts.check_sum IN (?)', check_sum], :group => 'rips.id')
+  def self.find_by_mrokhash(mrokhash)
+    self.find(:all, :include => :parts, :conditions => ['parts.mrokhash IN (?)', mrokhash], :group => 'rips.id')
   end 
   
   def self.find_releasers_like(val)
@@ -231,10 +231,10 @@ class Rip < ActiveRecord::Base
   end
   
   def prepare_parts
-    @check_sums = [] unless @check_sums
-    @part_files = Part.find_all_by_check_sum(@check_sums)
-    @check_sums.each_with_index do |check_sum, i|
-      part = @part_files.detect {|p| p.check_sum == check_sum}
+    @mrokhashes = [] unless @mrokhashes
+    @part_files = Part.find_all_by_mrokhash(@mrokhashes)
+    @mrokhashes.each_with_index do |mrokhash, i|
+      part = @part_files.detect {|p| p.mrokhash == mrokhash}
       part.number = i
       part.save
     end

@@ -2,8 +2,8 @@ class Part < ActiveRecord::Base
   belongs_to :rip
   has_and_belongs_to_many :users
   
-  validates_length_of :check_sum, :is => 24
-  validates_uniqueness_of :check_sum
+  validates_length_of :mrokhash, :is => 24
+  validates_uniqueness_of :mrokhash
     
   def to_xml_with_all(options = {})
     options[:except] = [:id, :rip_id]

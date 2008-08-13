@@ -3,40 +3,33 @@ class PartsController < ApplicationController
 
   # GET /parts
   def index
-    parts = logged_in_user.parts.find(:all, :select => :check_sum)
+    condition = ''
+    if not params[:without].blank? and Part.column_names.include? field
+      condition = {params[:without] => nil}
+      condition = {params[:without] => false} if params[:without] == 'movie_file_meta_data'
+    end
+    parts = logged_in_user.parts.find(:all, :select => :mrokhash, :conditions => condition)
+    
     respond_to do |format|
       format.xml { render :xml => parts }
       format.json { render :json => parts.to_json }
     end
   end
-
-  # GET /parts/incomplete
-  def incomplete
-    parts = logged_in_user.parts.find(:all, :select => :check_sum, :conditions => ['video_encoding IS NULL'])
-    respond_to do |format|
-      format.xml { render :xml => parts }
-      format.json { render :json => parts.to_json }
-    end
-  end
-
+  
   # POST /parts
-  # add parts to logged_in_user (only check_sums)
+  # add parts to logged_in_user (only mrokhashes)
   def create
-    # TODO:..
+    # TODO: refactor. expire rip pages after create and remove parts
     conf = {:path=>"#{RAILS_ROOT}/index/#{RAILS_ENV}/rip"}
     index = Ferret::Index::Index.new(conf)
 
     for p in params[:parts][:part]
-      part = Part.find_or_create_by_check_sum(p[:check_sum])
+      part = Part.find_or_create_by_mrokhash(p[:mrokhash])
       unless logged_in_user.parts.include? part
         logged_in_user.parts << part
-        #part.rip.ferret_update if part.rip
         update_user_in_field(:index => index, :part => part, :add => true)
       end
     end
-    expire_fragment("/rips/ratings/#{logged_in_user.id}")
-    #    cache_file = "#{RAILS_ROOT}/tmp/cache/rips/ratings/#{logged_in_user.id}.cache"
-    #    File.delete(cache_file) if File.exist?(cache_file)
     head :created
   end
 
@@ -44,9 +37,10 @@ class PartsController < ApplicationController
   # complete meta data
   def complete
     for p in params[:parts][:part]
-      part = Part.find_by_check_sum(p[:check_sum])
+      part = Part.find_by_mrokhash(p[:mrokhash])
       part.update_attributes(p)
-      expire_action rip_url(part.rip) if part.rip
+      
+      expire_page rip_url(part.rip) if part.rip
     end
     head :ok
   end
@@ -57,11 +51,10 @@ class PartsController < ApplicationController
     conf = {:path=>"#{RAILS_ROOT}/index/#{RAILS_ENV}/rip"}
     index = Ferret::Index::Index.new(conf)
 
-    check_sums = params[:parts][:part].collect {|p| p[:check_sum]}
-    parts = Part.find_all_by_check_sum(check_sums)
+    mrokhashs = params[:parts][:part].collect {|p| p[:mrokhash]}
+    parts = Part.find_all_by_mrokhash(mrokhashs)
     logged_in_user.parts.delete(parts)
     parts.each do |part|
-      #part.rip.ferret_update if part.rip
       update_user_in_field(:index => index, :part => part, :remove => true)
     end
     head :ok
