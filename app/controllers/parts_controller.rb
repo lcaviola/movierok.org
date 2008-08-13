@@ -19,7 +19,7 @@ class PartsController < ApplicationController
   # POST /parts
   # add parts to logged_in_user (only mrokhashes)
   def create
-    # TODO: refactor. expire rip pages after create and remove parts
+    # TODO: refactor
     conf = {:path=>"#{RAILS_ROOT}/index/#{RAILS_ENV}/rip"}
     index = Ferret::Index::Index.new(conf)
 
@@ -27,6 +27,7 @@ class PartsController < ApplicationController
       part = Part.find_or_create_by_mrokhash(p[:mrokhash])
       unless logged_in_user.parts.include? part
         logged_in_user.parts << part
+        remove_cache_pages(part.rip_id) if part.rip_id
         update_user_in_field(:index => index, :part => part, :add => true)
       end
     end
@@ -39,7 +40,7 @@ class PartsController < ApplicationController
     for p in params[:parts][:part]
       part = Part.find_by_mrokhash(p[:mrokhash])
       part.update_attributes(p)
-      
+      part.movie_file_meta_data = true
       expire_page rip_url(part.rip) if part.rip
     end
     head :ok
@@ -56,6 +57,7 @@ class PartsController < ApplicationController
     logged_in_user.parts.delete(parts)
     parts.each do |part|
       update_user_in_field(:index => index, :part => part, :remove => true)
+      remove_cache_pages(part.rip_id) if part.rip_id
     end
     head :ok
   end
@@ -69,6 +71,10 @@ class PartsController < ApplicationController
     end
   end
 
+  def remove_cache_pages(id)
+    caches = Dir.glob(RAILS_ROOT + '/public/rips/#{id}{-,.}*')
+    FileUtils.rm caches
+  end
 
   def update_user_in_field(o = {})
     unless o[:part].rip_id.blank?

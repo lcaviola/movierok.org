@@ -6,7 +6,7 @@ class CreateParts < ActiveRecord::Migration
       t.integer   :number, :default => 0
       
       t.integer    :audio_bit_rate, :audio_channels, :audio_sample_rate, :video_frame_rate, :duration, :filesize
-      t.string     :audio_encoding, :video_encoding, :video_resolution, :md5, :sha1
+      t.string     :audio_encoding, :video_encoding, :video_resolution, :md5, :sha1, :container
       t.boolean    :movie_file_meta_data, :default => false
       
       t.timestamps

@@ -25,8 +25,11 @@ class RipSweeper < ActionController::Caching::Sweeper
   end
   
   def expire_cache_for_rip(rip)
-    expire_page rip_path(rip)
+    #expire_page rip_path(rip)
     expire_fragment(rip)
+    
+    caches = Dir.glob(RAILS_ROOT + '/public/rips/#{rip.id}{-,.}*')
+    FileUtils.rm caches
   end
   
 end
