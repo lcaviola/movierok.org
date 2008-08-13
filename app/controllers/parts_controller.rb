@@ -72,7 +72,7 @@ class PartsController < ApplicationController
   end
 
   def remove_cache_pages(id)
-    caches = Dir.glob(RAILS_ROOT + '/public/rips/#{id}{-,.}*')
+    caches = Dir.glob(RAILS_ROOT + "/public/rips/#{id}{-,.}*")
     FileUtils.rm caches
   end
 
