@@ -98,6 +98,18 @@ body {
 #page_title small {
 }
 
+#whatis {
+  height: 44px;
+  background: url(/images/movierok_logo_64x64_white.png) no-repeat;
+  padding-top: 23px;
+  padding-left: 80px;
+}
+
+#lostpw p {
+  margin-top: 10px;
+}
+
+
 /**/
 
 
@@ -451,6 +463,7 @@ visibility:hidden;
 .only_if_logged_in, .only_when_not_logged_in {
     display: none;
 }
+
 
 .login_box .blocklabel input {
     display: block;

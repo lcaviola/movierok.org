@@ -1,5 +1,7 @@
 .login_box{:style => 'float:left; width: 300px; padding: 45px; '}
   %h2 login
+  %br
+  enter your name and password
   - form_tag :controller => 'sessions', :action => 'create' do
     %label.blocklabel
       name
@@ -15,20 +17,20 @@
 
 
 
-  %h3 lost password?
-   
-  - unless flash[:notice].blank?
-    %p= flash[:notice]
-   
-  - form_tag lost_password_url do
-    %label.blocklabel
-      email
-      = text_field_tag 'email'
-    %p
-      %br
-      = submit_tag 'get new password'
+  = link_to_function 'lost password?', "$('lostpw').toggle()"
+  #lostpw{:style => 'display:none'} 
+    - unless flash[:notice].blank?
+      %p= flash[:notice]
+      = javascript_tag "$('lostpw').toggle()"
+    - form_tag lost_password_url do
+      %label.blocklabel
+        email
+        = text_field_tag 'email'
+      %p
+        %br
+        = submit_tag 'get new password'
 
-.login_box{:style => 'float:left; width: 300px; padding: 45px; margin-left: 10px;'}
+.login_box{:style => 'float:left; width: 300px; padding: 45px; margin-left: 10px'}
   %h2 sign up
   %br
   %p don't have an account yet?

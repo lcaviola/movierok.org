@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       Mailer.deliver_lost_password user
       flash[:notice] = "An email has been sent to #{params[:email]}."
     else
-      flash[:notice] = "No user with this email address found."
+      flash[:notice] = "Sorry, no user with this email address found."
     end
     redirect_to new_user_path
   end
