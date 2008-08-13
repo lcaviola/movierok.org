@@ -50,7 +50,6 @@ class Movie < ActiveRecord::Base
     http = Net::HTTP::Proxy(proxy_host, proxy_port, proxy_user, proxy_password)
     xml_data = http.get_response(URI.parse(url)).body
    
-    # TODO: only for developing behind proxy
     #    xml_data = File.open("/home/cal/Desktop/embed_data.xml").read
     doc = REXML::Document.new(xml_data)
     

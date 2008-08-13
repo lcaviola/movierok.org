@@ -147,7 +147,7 @@ module RipsHelper
   def countries_information(movie)
     movie.countries.collect do |country|
       search_link(:country, country.name, country.iso_3166.upcase)
-    end.join(', ')
+    end.to_sentence
   end
 
 

@@ -38,9 +38,7 @@ Event.observe(window, 'load', function() {
     })
     
     if(is_logged_in()) {
-        // TODO: doesnt work with opera
         $$('.only_when_logged_in').each(function(e) { e.removeClassName("only_when_logged_in") })
-        
         if(rip_id && user_rips) {
             if(!user_rips.get(String(rip_id))) {
                 $$('.only_when_owner').each(function(e) { e.hide() })

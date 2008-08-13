@@ -56,7 +56,6 @@ function add_more_content(ajax){
         window.clearInterval(ap_timer);
     }
     ap_nextpage +=  1;
-    // TODO: playlinks anpassen mit ff-extension
     $('loaded_rips_count').update(ap_rips.childElements().length)
     
     ap_is_updating = false

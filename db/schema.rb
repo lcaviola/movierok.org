@@ -86,20 +86,24 @@ ActiveRecord::Schema.define(:version => 20) do
   end
 
   create_table "parts", :force => true do |t|
-    t.integer  "rip_id",            :limit => 11
-    t.string   "check_sum",                                      :null => false
-    t.integer  "number",            :limit => 11, :default => 0
-    t.integer  "audio_bit_rate",    :limit => 11
-    t.integer  "audio_channels",    :limit => 11
-    t.integer  "audio_sample_rate", :limit => 11
-    t.integer  "video_frame_rate",  :limit => 11
-    t.integer  "duration",          :limit => 11
-    t.integer  "filesize",          :limit => 11
+    t.integer  "rip_id",               :limit => 11
+    t.string   "mrokhash",                                              :null => false
+    t.integer  "number",               :limit => 11, :default => 0
+    t.integer  "audio_bit_rate",       :limit => 11
+    t.integer  "audio_channels",       :limit => 11
+    t.integer  "audio_sample_rate",    :limit => 11
+    t.integer  "video_frame_rate",     :limit => 11
+    t.integer  "duration",             :limit => 11
+    t.integer  "filesize",             :limit => 11
     t.string   "audio_encoding"
     t.string   "video_encoding"
     t.string   "video_resolution"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "md5"
+    t.string   "sha1"
+    t.boolean  "movie_file_meta_data",               :default => false
+    t.string   "container"
   end
 
   create_table "parts_users", :id => false, :force => true do |t|
@@ -163,8 +167,8 @@ ActiveRecord::Schema.define(:version => 20) do
   create_table "users", :force => true do |t|
     t.string   "name",                              :null => false
     t.string   "hashed_password",                   :null => false
+    t.string   "email"
     t.string   "salt",                              :null => false
-    t.string   "email",                             :null => false
     t.boolean  "public_rips",     :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

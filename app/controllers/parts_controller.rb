@@ -4,7 +4,7 @@ class PartsController < ApplicationController
   # GET /parts
   def index
     condition = ''
-    if not params[:without].blank? and Part.column_names.include? field
+    if not params[:without].blank? and Part.column_names.include? params[:without]
       condition = {params[:without] => nil}
       condition = {params[:without] => false} if params[:without] == 'movie_file_meta_data'
     end
