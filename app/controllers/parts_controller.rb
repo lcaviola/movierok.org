@@ -3,7 +3,7 @@ class PartsController < ApplicationController
 
   # GET /parts
   def index
-    condition = ''
+    condition = nil
     if not params[:without].blank? and Part.column_names.include? params[:without]
       condition = {params[:without] => nil}
       condition = {params[:without] => false} if params[:without] == 'movie_file_meta_data'
@@ -39,8 +39,8 @@ class PartsController < ApplicationController
   def complete
     for p in params[:parts][:part]
       part = Part.find_by_mrokhash(p[:mrokhash])
-      part.update_attributes(p)
       part.movie_file_meta_data = true
+      part.update_attributes(p)
       expire_page rip_url(part.rip) if part.rip
     end
     head :ok
