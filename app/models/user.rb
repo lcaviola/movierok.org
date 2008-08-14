@@ -9,18 +9,17 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :name
   validates_format_of :name, :with => /^\w+$/
-  #validates_format_of :email, :with => /^\S+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,4})(\]?)$/ix
+  validates_format_of :email, :with => /^\S+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4}|[0-9]{1,4})(\]?)$/ix, :allow_blank => true
 
   
   def unknown_parts
-    parts.find(:all, :conditions => ['rip_id IS NULL'])
+    parts.find(:all, :conditions => {:rip_id => nil})
   end
   
   def has_rip?(rip)
     parts.include? rip.parts.first
   end
   
-    
   def password
     @password
   end
