@@ -1,5 +1,5 @@
-- cache(rip) do
-  %li{:class => alternating_item_background}<
+%li{:class => alternating_item_background}<
+  - cache(rip) do
     = link_to image_tag(rip.movie.image_url('small')), rip_path(rip)
     %h4>= rip_title_with_year(rip)
     %span.play_link= rip.parts.collect(&:mrokhash).join('+')

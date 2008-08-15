@@ -1,5 +1,4 @@
 var rip_id = null
-var user_rips = null
 var selected_langs = []
 var langs = [['de', 'german', 'deutsch', 'ger'], ['us', 'en', 'english','eng', 'englisch'], ['fr', 'french']]
 var types = [['dvdrip', 'dvd'], ['cam', 'camrip'], ['telesync', 'ts'], ['screener', 'screen', 'scr', 'dvdscr'], ['r5'], ['telecine', 'tc'], ['workprint', 'wp']]
@@ -38,13 +37,7 @@ Event.observe(window, 'load', function() {
     })
     
     if(is_logged_in()) {
-        $$('.only_when_logged_in').each(function(e) { e.removeClassName("only_when_logged_in") })
-        if(rip_id && user_rips) {
-            if(!user_rips.get(String(rip_id))) {
-                $$('.only_when_owner').each(function(e) { e.hide() })
-            }
-        }
-        
+        $$('.only_when_logged_in').each(function(e) { e.removeClassName("only_when_logged_in") })       
     } else {
         $$('.only_when_not_logged_in').each(function(e) { $(e).removeClassName("only_when_not_logged_in") })
     }
