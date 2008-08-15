@@ -24,8 +24,8 @@
       = dl_item 'comment', h(@rip.release_comment)
       = dl_item 'language',  (@rip.languages.collect {|l| search_link :lang, l.name, l.iso_639_1 }.to_sentence)
       = dl_item 'subtitle', (@rip.subtitles.collect {|l| search_link :sub, l.name, l.iso_639_1 }.to_sentence)
-      = dl_item 'created', @rip.created_at
-      = dl_item 'last update', @rip.updated_at unless @rip.updated_at == @rip.created_at
+      =# dl_item 'created', @rip.created_at
+      =# dl_item 'last update', @rip.updated_at unless @rip.updated_at == @rip.created_at
       = dl_item 'cotaniner', @rip.parts.first.container
       = dl_item 'parts', @rip.parts.collect{|p| (part_information(p)) }.join("<br />")
  
