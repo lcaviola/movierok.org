@@ -263,6 +263,7 @@ function insert_omdb_search_term(element) {
 }
 
 function preselect_rip_info_from_filename(filename, element) {
+    sample_warining = false
     filename = filename.replace(/[\(\)\.\/\]\[\-_]/g, ' ')//.replace(/\d/g, ' ')
     filename_orignal_size = filename.split(' ')
     filename = filename.toLowerCase().split(' ')
@@ -301,7 +302,8 @@ function preselect_rip_info_from_filename(filename, element) {
         }
         
         // sample
-        if(t == 'sample') {
+        if(!sample_warning && t == 'sample') {
+            sample_warning = true
             $(element).insert('<small class="warning">this might be a sample</small>')
         }
     }

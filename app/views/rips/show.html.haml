@@ -26,8 +26,9 @@
       = dl_item 'subtitle', (@rip.subtitles.collect {|l| search_link :sub, l.name, l.iso_639_1 }.to_sentence)
       = dl_item 'created', @rip.created_at
       = dl_item 'last update', @rip.updated_at unless @rip.updated_at == @rip.created_at
+      = dl_item 'cotaniner', @rip.parts.first.container
       = dl_item 'parts', @rip.parts.collect{|p| (part_information(p)) }.join("<br />")
-
+ 
   - if part = @rip.parts.first
     .small_info_box
       %h3 video
