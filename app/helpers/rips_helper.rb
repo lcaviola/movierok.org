@@ -139,9 +139,9 @@ module RipsHelper
 
 
   def part_information(part)
-    res = "#{number_to_human_size(part.filesize)}"
-    #res << "<br /> #{part.duration_in_minutes} min" unless part.duration_in_minutes.blank?
-    res
+    #res = "#{number_to_human_size(part.filesize)}"
+    "#{part.duration_in_minutes} min" unless part.duration_in_minutes.blank?
+   # res
   end
 
   def countries_information(movie)
