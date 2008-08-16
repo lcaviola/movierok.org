@@ -140,7 +140,7 @@ module RipsHelper
 
   def part_information(part)
     res = "#{number_to_human_size(part.filesize)}"
-    res << " / #{part.duration_in_minutes}&nbsp;min" unless part.duration_in_minutes.blank?
+    #res << "<br /> #{part.duration_in_minutes} min" unless part.duration_in_minutes.blank?
     res
   end
 

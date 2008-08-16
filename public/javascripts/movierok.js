@@ -256,7 +256,7 @@ function insert_omdb_search_term(element) {
 }
 
 function preselect_rip_info_from_filename(filename, element) {
-    sample_warining = false
+    sample_warning = false
     filename = filename.replace(/[\(\)\.\/\]\[\-_]/g, ' ')//.replace(/\d/g, ' ')
     filename_orignal_size = filename.split(' ')
     filename = filename.toLowerCase().split(' ')

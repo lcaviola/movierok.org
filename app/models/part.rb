@@ -28,11 +28,11 @@ class Part < ActiveRecord::Base
   end
   
   def audio_bit_rate_in_words
-    (audio_bit_rate.blank?) ? '' : "#{audio_bit_rate} bps"
+    (audio_bit_rate.blank?) ? '' : "#{audio_bit_rate/1000} kbps"
   end
   
   def audio_sample_rate_in_words
-    (audio_sample_rate.blank?) ? '' : "#{audio_sample_rate} Hz"
+    (audio_sample_rate.blank?) ? '' : "#{audio_sample_rate/1000} kHz"
   end
   
   def real_movie_file?

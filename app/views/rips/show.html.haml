@@ -24,11 +24,24 @@
       = dl_item 'comment', h(@rip.release_comment)
       = dl_item 'language',  (@rip.languages.collect {|l| search_link :lang, l.name, l.iso_639_1 }.to_sentence)
       = dl_item 'subtitle', (@rip.subtitles.collect {|l| search_link :sub, l.name, l.iso_639_1 }.to_sentence)
-      =# dl_item 'created', @rip.created_at
+      = dl_item 'created', @rip.created_at
       =# dl_item 'last update', @rip.updated_at unless @rip.updated_at == @rip.created_at
-      = dl_item 'cotaniner', @rip.parts.first.container
-      = dl_item 'parts', @rip.parts.collect{|p| (part_information(p)) }.join("<br />")
- 
+
+  .small_info_box
+    - if @rip.parts.length > 1
+      %h3 files
+    - else
+      %h3 file
+    - for part in @rip.parts
+      - if @rip.parts.length < 3
+        %dl.filedl
+          = dl_item 'cotaniner', part.container
+          = dl_item 'size', number_to_human_size(part.filesize)
+          = dl_item 'length', "#{part.duration_in_minutes} min"
+      - else
+        = part_information(part)
+        %br
+
   - if part = @rip.parts.first
     .small_info_box
       %h3 video
@@ -47,14 +60,9 @@
         = dl_item 'sample rate', h(part.audio_sample_rate_in_words)
         = dl_item 'channels', h(part.audio_channels_in_words)
 
-    .small_info_box{:style => 'width: 130px'}
-      %h3 users
-      %ul
-        - for u in @rip.users
-          %li= link_to u.name, user_rips_path(u)
-
 %div{:style => 'clear: both'}
   %dl.rip_info_box{:style => 'width: 300px'}
+    = dl_item 'users', @rip.users.collect {|u| link_to u.name, user_rips_path(u)}.to_sentence
     = dl_item 'genre', (@rip.movie.genres.collect {|g| search_link :genre, g.name }.to_sentence)
     = dl_item 'countries', countries_information(@rip.movie)
     = dl_item 'description', h(@rip.movie.description)
