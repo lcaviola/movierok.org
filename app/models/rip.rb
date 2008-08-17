@@ -91,66 +91,21 @@ class Rip < ActiveRecord::Base
   
   #
   def self.get(params = {}, options = {})
-    params[:user] = params[:user_id] if params[:user_id]
-    
-    options[:per_page] ||= 30
+    user = params[:user] || params[:user_id]
     options[:page] = params[:page]
+    options[:per_page] ||= 30
     
-    if params[:search].blank?
-      filter(params, options)
-    else
-      search(params, options)
-    end
-  end
-  
-  def self.filter(params, options)
-    user = User.find_by_name(params[:user])
-    options[:include] = []
-    if user
-      # options[:include] = {:parts => :users}
-      # why the fuck doesnt this work anymore? rails2.1 prob?
-      # doing it manually
-      options[:joins] = 'LEFT OUTER JOIN parts ON parts.rip_id = rips.id LEFT OUTER JOIN parts_users ON parts_users.part_id = parts.id LEFT OUTER JOIN users ON users.id = parts_users.user_id'
-      options[:group] = 'rips.id'
-     
-      options[:conditions] = ['parts_users.user_id = ?', user.id]
-    end
+    search = (params[:search] || '*').clone.downcase.replace_some_special_chars
+    search << " AND user:#{user}" if user
 
-    if params[:sort] and params[:sort] == 'title'
-      options[:order] = 'movies.title'
-      options[:order] << ' DESC' if params[:order] and params[:order] == 'down'
-      options[:include] << :movie
-    else
-      if params[:order] and params[:order] == 'down'
-        options[:order] = 'rips.created_at, rips.id'
-      else
-        options[:order] = 'rips.created_at DESC, rips.id DESC'
-      end
-    end
-    
-    Rip.paginate(:all, options)
-  end
-  
-  def self.search(params, options)
-    search = params[:search].clone.downcase.replace_some_special_chars
-    # user = User.find_by_name(params[:user])
-    search << " AND user:#{params[:user]}" if params[:user]
-    
-    
-    if params[:sort] and params[:sort] == 'title'
-      if params[:order] and params[:order] == 'down'
-        options[:sort] = Ferret::Search::SortField.new(:title, :reverse => true)
-      else
-        options[:sort] = Ferret::Search::SortField.new(:title)
-      end
-    else
-      if params[:order] and params[:order] == 'down'
-        options[:sort] = Ferret::Search::SortField.new(:id)
-      else
-        options[:sort] = Ferret::Search::SortField.new(:id, :reverse => true)
-      end
-    end
+    sort = (params[:sort] and params[:sort] == 'title') ? :title : :id
+    reverse = !(params[:order] and params[:order] == 'down')
+    options[:sort] = Ferret::Search::SortField.new(sort, :reverse => reverse)
+
     Rip.find_with_ferret(search, options)
+  end
+
+  def self.search(params, options)
   end
   
   def self.find_by_mrokhash(mrokhash)

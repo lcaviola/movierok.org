@@ -63,7 +63,7 @@ module RipsHelper
   end
 
   def total_rips_count(rips)
-    (rips.respond_to?(:total_entries)) ? rips.total_entries : rips.total_hits
+    rips.total_hits
   end
 
   def search_link(key, name, value = name)

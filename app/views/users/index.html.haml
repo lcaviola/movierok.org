@@ -16,7 +16,7 @@
         %th== #{index+1}.
         %th{:scope => 'row', :style => 'text-align:left'}
           = link_to user.name, user_rips_path(user)
-        %td= Rip.get(:user => user.name).total_entries
+        %td= Rip.get(:user => user.name).total_hits
         %td= user.created_rips_count
         %td= user.created_rips_in_percent(total_rips)
     %tr

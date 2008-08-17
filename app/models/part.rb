@@ -36,7 +36,7 @@ class Part < ActiveRecord::Base
   end
   
   def real_movie_file?
-    not video_encoding.blank?
+    movie_file_meta_data?
   end
   
 end
