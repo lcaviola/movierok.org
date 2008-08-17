@@ -230,21 +230,22 @@ function insert_omdb_search_term(element) {
     unselect_selected_rip_infos()
     if($(element).down('.filename')) {
         filename = $(element).down('.filename').childNodes[0].nodeValue.toLowerCase()
-    
-        filename = filename.replace(/\[(.*)\]/, '').replace(/\((.*)\)/, '')
+        filename = filename.replace(/\[(.*)\]/, ' ').replace(/\((.*)\)/, ' ')
         filename = filename.replace(/[\.\/\]\[\-_]/g, ' ').replace(/\d/g, ' ')
         filename = filename.escapeHTML()
         filename = filename.replace(/&nbsp;/g, ' ')
-    
-        nmtw = no_movie_title_words + releasers.toLowerCase()
+
+        nmtw = no_movie_title_words + ' ' + releasers.toLowerCase()
         nmtw = nmtw.split(' ')
         filename = filename.split(' ')
-    
+  
         search_term = ''
         for(i = 0; i < filename.length; i++) {
             t = filename[i].replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+           
             filename[i] = null
             if(nmtw.indexOf(t) == -1) {
+           
                 if(filename.indexOf(t) == -1 && t.length > 1) {
                     search_term += t + ' '
                 }
@@ -335,17 +336,17 @@ function paste_to_search(name, value) {
     if(query.indexOf(to_add) == -1) {
         if(query.length > 0 && query.substring(query.length -1, query.length)  != ' ') {
             $('search').value += ' '
+            }
+            $('search').value += to_add
+            }
+            }
+
+            function logged_in_as() {
+            return Cookie.get('user_name')
         }
-        $('search').value += to_add
-    }
-}
 
-function logged_in_as() {
-    return Cookie.get('user_name')
-}
-
-function is_logged_in() {
-    name = logged_in_as()
+        function is_logged_in() {
+        name = logged_in_as()
     return name && name != null && !(typeof name == 'string' && name == 'null')
 }
 

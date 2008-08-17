@@ -36,7 +36,7 @@ class Part < ActiveRecord::Base
   end
   
   def real_movie_file?
-    not container.blank?
+    not video_encoding.blank?
   end
   
 end
