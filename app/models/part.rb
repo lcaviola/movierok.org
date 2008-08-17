@@ -36,7 +36,7 @@ class Part < ActiveRecord::Base
   end
   
   def real_movie_file?
-    movie_file_meta_data?
+    not container.blank?
   end
   
 end

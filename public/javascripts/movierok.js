@@ -3,48 +3,50 @@ var selected_langs = []
 var langs = [['de', 'german', 'deutsch', 'ger'], ['us', 'en', 'english','eng', 'englisch'], ['fr', 'french']]
 var types = [['dvdrip', 'dvd'], ['cam', 'camrip'], ['telesync', 'ts'], ['screener', 'screen', 'scr', 'dvdscr'], ['r5'], ['telecine', 'tc'], ['workprint', 'wp']]
 var no_movie_title_words = 'avi mpg mpeg www dvd dvdrip sample '+
-    'xvid divx rip com movie movies cd net ld th srtsxi extra extras '+
-    'german english ac en de neu new mkv mov by from screener cam camrip lmg '+
-    'xc kvcd tus tgf dmd ws dvf ch gre jjh ct tdr kai rg vite lrc widescreen '+
-    'div fmi hd hdtv special edition lfod telecine tdvc ts mov home cal download downloads ' +
-    'additional scene scenes tdvcb nbs hr vmt xvod imbt trashcan unrated promise ' +
-    'tc sm fxg unrated spielfilme telesync crew rsvcd svcd src shared  mrok media trunk hq tln ' +
-    'venomowns mvn encode md mvcd vcd aoe trailer tdvca stv tide traday part video videos videoz moviez'
+'xvid divx rip com movie movies cd net ld th srtsxi extra extras '+
+'german english ac en de neu new mkv mov by from screener cam camrip lmg '+
+'xc kvcd tus tgf dmd ws dvf ch gre jjh ct tdr kai rg vite lrc widescreen '+
+'div fmi hd hdtv special edition lfod telecine tdvc ts mov home cal download downloads ' +
+'additional scene scenes tdvcb nbs hr vmt xvod imbt trashcan unrated promise ' +
+'tc sm fxg unrated spielfilme telesync crew rsvcd svcd src shared  mrok media trunk hq tln ' +
+'venomowns mvn encode md mvcd vcd aoe trailer tdvca stv tide traday part video videos videoz moviez'
 
 var omdb_response = null
 
 Event.observe(window, 'load', function() {
-    if($('search'))
-      $('search').focus()
-    //Event.observe('search_form', 'onsubmit', submit_search)
+    if($('search')) {
+        $('search').focus()
+        //Event.observe('search_form', 'onsubmit', submit_search)
 
-    adjust_rip_search_links()
-    adjust_header()
-    adjust_rip_list_links_with_covers()
-    $('settings_link').href = '/users/' + name + '/edit'
+        adjust_rip_search_links()
+        adjust_header()
+        adjust_rip_list_links_with_covers()
+        $('settings_link').href = '/users/' + name + '/edit'
 
-    if($('rip_form')) {
-        prepare_rip_forms()
-    }
+        if($('rip_form')) {
+            prepare_rip_forms()
+        }
     
-    init_stars('audio_rating')
-    init_stars('video_rating')
+        init_stars('audio_rating')
+        init_stars('video_rating')
+        
+        $$('#rip_form .select_box li').each(function(e) {
+            e.onclick = toggle_lang
+        })
     
+        if(is_logged_in()) {
+            $$('.only_when_logged_in').each(function(e) {
+                e.removeClassName("only_when_logged_in")
+            })
+        } else {
+            $$('.only_when_not_logged_in').each(function(e) {
+                $(e).removeClassName("only_when_not_logged_in")
+            })
+        }
     
-   
-    
-    $$('#rip_form .select_box li').each(function(e) {
-        e.onclick = toggle_lang
-    })
-    
-    if(is_logged_in()) {
-        $$('.only_when_logged_in').each(function(e) { e.removeClassName("only_when_logged_in") })       
-    } else {
-        $$('.only_when_not_logged_in').each(function(e) { $(e).removeClassName("only_when_not_logged_in") })
-    }
-    
-    if($('parts')) {
-        Sortable.create('parts')
+        if($('parts')) {
+            Sortable.create('parts')
+        }
     }
 });
 
@@ -96,17 +98,21 @@ function get_value_from_class_name(element, class_name) {
 }
 
 function init_stars(class_name) {
-    $$('.' +class_name).each(function(e) { e.onmouseover = select_star; e.onmouseout = unselect_star })
+    $$('.' +class_name).each(function(e) {
+        e.onmouseover = select_star; e.onmouseout = unselect_star
+    })
 }
 
 function select_star(e) {
     $(e.target).previousSiblings().each(function(s) {
-        s.addClassName('selected_star') })
+        s.addClassName('selected_star')
+    })
     $(e.target).addClassName('selected_star')
 }
 function unselect_star(e) {
     $(e.target).previousSiblings().each(function(s) {
-        s.removeClassName('selected_star') })
+        s.removeClassName('selected_star')
+    })
     $(e.target).removeClassName('selected_star')
 }
 
@@ -131,8 +137,8 @@ function adjust_header() {
         $('my_rips_link').title = 'show my rips'
     }
    
-    if(is_logged_in() && document.location.href.indexOf($('my_rips_link').href) != -1) 
-        $$('#menu > li')[0].addClassName('selected_tab') 
+    if(is_logged_in() && document.location.href.indexOf($('my_rips_link').href) != -1)
+        $$('#menu > li')[0].addClassName('selected_tab')
     else if(document.location.href.indexOf('/rips') != -1)
         $$('#menu > li')[1].addClassName('selected_tab')
        
@@ -194,7 +200,7 @@ function remove_part(element) {
     
     if($('parts').empty()){
         $('rip_info').hide()
-        // Effect.Fade('rip_info', {duration:0.3})
+    // Effect.Fade('rip_info', {duration:0.3})
     }
     
     unselect_selected_rip_infos()
@@ -204,7 +210,9 @@ function remove_part(element) {
 function add_part(element) {
     //$('rip_info').show()
     
-    Effect.Appear('rip_info', {duration:0.3})
+    Effect.Appear('rip_info', {
+        duration:0.3
+    })
     
     element = $(element).up('.part').remove()
     
@@ -248,7 +256,7 @@ function insert_omdb_search_term(element) {
         search_term = search_term.replace(/\s+/g, ' ').replace(/^\s+|\s+$/g,"")
         $('omdb_search_field').value = search_term.unescapeHTML()
         if($('omdb_search_form').hasClassName('new_part_added')) {
-            $('omdb_search_form').removeClassName('new_part_added')  
+            $('omdb_search_form').removeClassName('new_part_added')
         } else {
             $('omdb_search_form').addClassName('new_part_added')
         }
@@ -280,7 +288,7 @@ function preselect_rip_info_from_filename(filename, element) {
             rel = releasers.split(' ')
             for(j = 0; j < rel.length; j++) {
                 if(t.length > 0 && rel[j].toLowerCase() == t) {
-                    $('rip_releaser').value = rel[j] 
+                    $('rip_releaser').value = rel[j]
                 }
             }
             
@@ -328,7 +336,7 @@ function paste_to_search(name, value) {
         if(query.length > 0 && query.substring(query.length -1, query.length)  != ' ') {
             $('search').value += ' '
         }
-        $('search').value += to_add   
+        $('search').value += to_add
     }
 }
 
@@ -376,7 +384,7 @@ function prepare_rip_forms() {
     }
     $('omdb_suggestions').onmouseout = function () {
         $('rip_omdb').parentNode.getElementsByTagName("span")[0].style.display = "none";
-    } 
+    }
 }
 
 function create_input_hint(inputs, focusing) {
@@ -401,7 +409,7 @@ function create_input_hint(inputs, focusing) {
                 // when the cursor moves away from the field, hide the hint
                 inputs[i].onmouseout = function () {
                     this.parentNode.getElementsByTagName("span")[0].style.display = "none";
-                } 
+                }
             }
         }
     }
@@ -421,10 +429,12 @@ function set_omdb(id) {
 function installExtension(aEvent, extensionName, iconURL) {
     var params = new Object()
     params[extensionName] =
-        {
+    {
         URL: aEvent.target.href,
         IconURL: iconURL,
-        toString: function () { return this.URL; }
+        toString: function () {
+            return this.URL;
+        }
     }
     InstallTrigger.install(params);
     return false;
@@ -433,7 +443,7 @@ function installExtension(aEvent, extensionName, iconURL) {
 
 function hide_samples() {
     $$('.part').each(function(e) {
-        if(e.innerHTML.toLowerCase().indexOf('sample') > -1) 
+        if(e.innerHTML.toLowerCase().indexOf('sample') > -1)
             e.remove()
     })
 }
