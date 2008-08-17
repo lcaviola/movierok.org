@@ -91,7 +91,7 @@ class Rip < ActiveRecord::Base
   
   #
   def self.get(params = {}, options = {})
-    user = params[:user] || params[:user_id] if params[:user_id]
+    user = params[:user] || params[:user_id]
     options[:page] = params[:page]
     options[:per_page] ||= 30
     
