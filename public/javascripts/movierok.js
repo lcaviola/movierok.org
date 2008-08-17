@@ -14,7 +14,8 @@ var no_movie_title_words = 'avi mpg mpeg www dvd dvdrip sample '+
 var omdb_response = null
 
 Event.observe(window, 'load', function() {
-    $('search').focus()
+    if($('search'))
+      $('search').focus()
     //Event.observe('search_form', 'onsubmit', submit_search)
 
     adjust_rip_search_links()
