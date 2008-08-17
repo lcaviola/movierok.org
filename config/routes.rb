@@ -25,4 +25,6 @@ ActionController::Routing::Routes.draw do |map|
   map.ffextversion 'firefox_extension/compatible_versions.:format', :controller => 'movierok', :action => 'ffextversion'
   map.advanced_search 'advanced_search', :controller => 'movierok', :action => 'advanced_search'
   map.sitemap 'sitemap.:format', :controller => 'movierok', :action => 'sitemap'
+
+  map.connect "logged_exceptions/:action/:id", :controller => "logged_exceptions"
 end

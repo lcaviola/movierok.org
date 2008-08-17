@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include ExceptionLoggable
+
   # protect_from_forgery
   before_filter :check_for_user_name_cookie
   
