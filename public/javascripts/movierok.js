@@ -3,13 +3,13 @@ var selected_langs = []
 var langs = [['de', 'german', 'deutsch', 'ger'], ['us', 'en', 'english','eng', 'englisch'], ['fr', 'french']]
 var types = [['dvdrip', 'dvd'], ['cam', 'camrip'], ['telesync', 'ts'], ['screener', 'screen', 'scr', 'dvdscr'], ['r5'], ['telecine', 'tc'], ['workprint', 'wp']]
 var no_movie_title_words = 'avi mpg mpeg www dvd dvdrip sample '+
-'xvid divx rip com movie movies cd net ld th srtsxi extra extras '+
-'german english ac en de neu new mkv mov by from screener cam camrip lmg '+
-'xc kvcd tus tgf dmd ws dvf ch gre jjh ct tdr kai rg vite lrc widescreen '+
-'div fmi hd hdtv special edition lfod telecine tdvc ts mov home cal download downloads ' +
-'additional scene scenes tdvcb nbs hr vmt xvod imbt trashcan unrated promise ' +
-'tc sm fxg unrated spielfilme telesync crew rsvcd svcd src shared  mrok media trunk hq tln ' +
-'venomowns mvn encode md mvcd vcd aoe trailer tdvca stv tide traday part video videos videoz moviez'
+    'xvid divx rip com movie movies cd net ld th srtsxi extra extras sg '+
+    'german english ac en eng de neu new mkv mov by from screener domino max cam camrip lmg '+
+    'xc kvcd tus tgf dmd ws dvf ch gre jjh ct tdr kai rg dvdscr vite lrc widescreen dt freshwap jaw '+
+    'div fmi hd hdtv special edition lfod telecine tdvc ts mov home cal download downloads festival rcdivx ' +
+    'additional scene scenes tdvcb nbs hr vmt xvod imbt trashcan unrated promise dmc jamgood bestdivx ' +
+    'tc sm fxg unrated spielfilme telesync crew rsvcd svcd src shared  mrok media trunk hq tln gowenna rina ' +
+    'venomowns mvn encode md mvcd vcd aoe trailer tdvca stv tide traday part video videos videoz moviez '
 
 var omdb_response = null
 
@@ -200,7 +200,7 @@ function remove_part(element) {
     
     if($('parts').empty()){
         $('rip_info').hide()
-    // Effect.Fade('rip_info', {duration:0.3})
+        // Effect.Fade('rip_info', {duration:0.3})
     }
     
     unselect_selected_rip_infos()
@@ -231,7 +231,7 @@ function insert_omdb_search_term(element) {
     if($(element).down('.filename')) {
         filename = $(element).down('.filename').childNodes[0].nodeValue.toLowerCase()
         filename = filename.replace(/\[(.*)\]/, ' ').replace(/\((.*)\)/, ' ')
-        filename = filename.replace(/[\.\/\]\[\-_]/g, ' ').replace(/\d/g, ' ')
+        filename = filename.replace(/[\.\/\]\[\-_,]/g, ' ').replace(/\d/g, ' ')
         filename = filename.escapeHTML()
         filename = filename.replace(/&nbsp;/g, ' ')
 
@@ -239,22 +239,23 @@ function insert_omdb_search_term(element) {
         nmtw = nmtw.split(' ')
         filename = filename.split(' ')
   
-        search_term = ''
+        search_terms = []
         for(i = 0; i < filename.length; i++) {
             t = filename[i].replace(/^\s\s*/, '').replace(/\s\s*$/, '')
-           
+            t.replace(/\s+/g, '')
             filename[i] = null
             if(nmtw.indexOf(t) == -1) {
            
                 if(filename.indexOf(t) == -1 && t.length > 1) {
-                    search_term += t + ' '
+                    search_terms.push(t)
                 }
             }
             if(t == 'dvdrip') {
                 $('rip_type_id').childElements()[1].selected = 'selected'
             }
         }
-        search_term = search_term.replace(/\s+/g, ' ').replace(/^\s+|\s+$/g,"")
+        search_terms = cleanup_term(search_terms)
+        search_term = search_terms.join(' ')
         $('omdb_search_field').value = search_term.unescapeHTML()
         if($('omdb_search_form').hasClassName('new_part_added')) {
             $('omdb_search_form').removeClassName('new_part_added')
@@ -263,6 +264,59 @@ function insert_omdb_search_term(element) {
         }
         preselect_rip_info_from_filename($(element).down('.filename').childNodes[0].nodeValue.toLowerCase(), element)
     }
+}
+
+function cleanup_term(terms) {
+    new_terms = []
+    to_remove = []
+    for(i = 0; i < terms.length; i++) {
+        t = terms[i]
+
+        if(t.length > 3) {
+            for(j = 0; j < terms.length; j++) {
+                t2 = terms[j]
+                if(j != i && t2.indexOf(t) != -1) {
+                    to_remove.push(j)
+                    console.log('as')
+                }
+            }
+        }
+        
+
+        shorthand = ''
+        for(j = 0; j < terms.length; j++) {
+            t2 = terms[j]
+            if(j != i && t2.length > 0) {
+                shorthand += t2.substr(0, 1)
+            }
+        }
+        if(shorthand.length > 2) {
+            for(j = 0; j < terms.length; j++) {
+                t2 = terms[j]
+                if(t2 == shorthand || (t2.length > 2 && t2.indexOf(shorthand) != -1)) {
+                    to_remove.push(j)
+                }
+            }
+        }
+        
+        
+        for(j = 0; j < terms.length; j++) {
+            t2 = terms[j].replace(/[aeiou]+/g, '')
+            if(t2.length > 2 && t2 == t) {
+                to_remove.push(j)
+            }
+        }
+        
+            
+    }
+
+    for(i = 0; i < terms.length; i++) {
+        if(to_remove.indexOf(i) == -1) {
+            new_terms.push(terms[i])
+        }
+    }
+    
+    return new_terms
 }
 
 function preselect_rip_info_from_filename(filename, element) {
@@ -336,17 +390,17 @@ function paste_to_search(name, value) {
     if(query.indexOf(to_add) == -1) {
         if(query.length > 0 && query.substring(query.length -1, query.length)  != ' ') {
             $('search').value += ' '
-            }
-            $('search').value += to_add
-            }
-            }
-
-            function logged_in_as() {
-            return Cookie.get('user_name')
         }
+        $('search').value += to_add
+    }
+}
 
-        function is_logged_in() {
-        name = logged_in_as()
+function logged_in_as() {
+    return Cookie.get('user_name')
+}
+
+function is_logged_in() {
+    name = logged_in_as()
     return name && name != null && !(typeof name == 'string' && name == 'null')
 }
 
@@ -430,7 +484,7 @@ function set_omdb(id) {
 function installExtension(aEvent, extensionName, iconURL) {
     var params = new Object()
     params[extensionName] =
-    {
+        {
         URL: aEvent.target.href,
         IconURL: iconURL,
         toString: function () {
