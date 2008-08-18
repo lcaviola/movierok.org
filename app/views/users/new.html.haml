@@ -1,7 +1,8 @@
 .login_box{:style => 'float:left; width: 300px; padding: 45px; '}
   %h2 login
   %br
-  enter your name and password
+  please note that you need
+  = link_to 'firefox 3', 'http://mozilla.com'
   - form_tag :controller => 'sessions', :action => 'create' do
     %label.blocklabel
       name
