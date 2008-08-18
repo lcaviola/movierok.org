@@ -4,10 +4,10 @@ var langs = [['de', 'german', 'deutsch', 'ger'], ['us', 'en', 'english','eng', '
 var types = [['dvdrip', 'dvd'], ['cam', 'camrip'], ['telesync', 'ts'], ['screener', 'screen', 'scr', 'dvdscr'], ['r5'], ['telecine', 'tc'], ['workprint', 'wp']]
 var no_movie_title_words = 'avi mpg mpeg www dvd dvdrip sample '+
 'xvid divx rip com movie movies cd net ld th srtsxi extra extras sg '+
-'german english ac en eng de neu new mkv mov by from screener domino max cam camrip lmg '+
-'xc kvcd tus tgf dmd ws dvf ch gre jjh ct tdr kai rg dvdscr vite lrc widescreen dt freshwap jaw '+
-'div fmi hd hdtv special edition lfod telecine tdvc ts mov home cal download downloads festival rcdivx ' +
-'additional scene scenes tdvcb nbs hr vmt xvod imbt trashcan unrated promise dmc jamgood bestdivx ' +
+'german english ac en eng de neu new mkv mov by from screener domino up phorum izzy max cam camrip lmg '+
+'xc kvcd tus tgf dmd ws lan lang language languages sub dvf ch gre jjh ct tdr kai rg dvdscr vite lrc widescreen dt org makingoff freshwap jaw '+
+'div fmi hd hdtv special bb warez nedivx edition lfod telecine tdvc ts mov home cal uploaded edukators download downloads festival rcdivx ' +
+'additional scene scenes sc xl ivx xvid@ min mp subtitle subtitles disc fg ii iii iv v vi vii fixed nodlabs team iafw posted tdvcb nbs hr vmt xvod imbt audio sound trashcan unrated promise dmc jamgood bestdivx ' +
 'tc sm fxg unrated spielfilme telesync crew rsvcd svcd src shared  mrok media trunk hq tln gowenna rina ' +
 'venomowns mvn encode md mvcd vcd aoe trailer tdvca stv tide traday part video videos videoz moviez '
 
@@ -25,7 +25,8 @@ Event.observe(window, 'load', function() {
 
         if($('rip_form')) {
             prepare_rip_forms()
-            toggle_samples()
+            if($('toggle_samples'))
+              toggle_samples()
         }
     
         init_stars('audio_rating')
@@ -507,8 +508,8 @@ function installExtension(aEvent, extensionName, iconURL) {
 
 
 function toggle_samples() {
-    $$('.part').each(function(e) {
-        if(e.innerHTML.toLowerCase().indexOf('sample') > -1)
+    $$('#unknown_parts .part').each(function(e) {
+        if(e.down('.filename').innerHTML.toLowerCase().indexOf('sample') > -1)
             e.toggle()
     })
     toggle_samples_text = 'hide samples'
