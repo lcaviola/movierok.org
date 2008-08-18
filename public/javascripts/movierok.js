@@ -509,7 +509,7 @@ function installExtension(aEvent, extensionName, iconURL) {
 
 function toggle_samples() {
     $$('#unknown_parts .part').each(function(e) {
-        if(e.down('.filename').innerHTML.toLowerCase().indexOf('sample') > -1)
+        if(e && e.down('.filename') && e.down('.filename').innerHTML.toLowerCase().indexOf('sample') > -1)
             e.toggle()
     })
     toggle_samples_text = 'hide samples'

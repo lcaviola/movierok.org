@@ -26,6 +26,9 @@ module ApplicationHelper
       :cache => true
   end
 
+  def include_feedback_js
+    '<script src="http://feedback.movierok.org/pages/general/widgets/tab.js?alignment=right&amp;color=282828" type="text/javascript"></script>'
+  end
   
   def types_as_array
     i = 0
