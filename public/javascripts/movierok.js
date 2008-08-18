@@ -3,13 +3,13 @@ var selected_langs = []
 var langs = [['de', 'german', 'deutsch', 'ger'], ['us', 'en', 'english','eng', 'englisch'], ['fr', 'french']]
 var types = [['dvdrip', 'dvd'], ['cam', 'camrip'], ['telesync', 'ts'], ['screener', 'screen', 'scr', 'dvdscr'], ['r5'], ['telecine', 'tc'], ['workprint', 'wp']]
 var no_movie_title_words = 'avi mpg mpeg www dvd dvdrip sample '+
-    'xvid divx rip com movie movies cd net ld th srtsxi extra extras sg '+
-    'german english ac en eng de neu new mkv mov by from screener domino max cam camrip lmg '+
-    'xc kvcd tus tgf dmd ws dvf ch gre jjh ct tdr kai rg dvdscr vite lrc widescreen dt freshwap jaw '+
-    'div fmi hd hdtv special edition lfod telecine tdvc ts mov home cal download downloads festival rcdivx ' +
-    'additional scene scenes tdvcb nbs hr vmt xvod imbt trashcan unrated promise dmc jamgood bestdivx ' +
-    'tc sm fxg unrated spielfilme telesync crew rsvcd svcd src shared  mrok media trunk hq tln gowenna rina ' +
-    'venomowns mvn encode md mvcd vcd aoe trailer tdvca stv tide traday part video videos videoz moviez '
+'xvid divx rip com movie movies cd net ld th srtsxi extra extras sg '+
+'german english ac en eng de neu new mkv mov by from screener domino max cam camrip lmg '+
+'xc kvcd tus tgf dmd ws dvf ch gre jjh ct tdr kai rg dvdscr vite lrc widescreen dt freshwap jaw '+
+'div fmi hd hdtv special edition lfod telecine tdvc ts mov home cal download downloads festival rcdivx ' +
+'additional scene scenes tdvcb nbs hr vmt xvod imbt trashcan unrated promise dmc jamgood bestdivx ' +
+'tc sm fxg unrated spielfilme telesync crew rsvcd svcd src shared  mrok media trunk hq tln gowenna rina ' +
+'venomowns mvn encode md mvcd vcd aoe trailer tdvca stv tide traday part video videos videoz moviez '
 
 var omdb_response = null
 
@@ -25,6 +25,7 @@ Event.observe(window, 'load', function() {
 
         if($('rip_form')) {
             prepare_rip_forms()
+            toggle_samples()
         }
     
         init_stars('audio_rating')
@@ -200,7 +201,7 @@ function remove_part(element) {
     
     if($('parts').empty()){
         $('rip_info').hide()
-        // Effect.Fade('rip_info', {duration:0.3})
+    // Effect.Fade('rip_info', {duration:0.3})
     }
     
     unselect_selected_rip_infos()
@@ -277,7 +278,6 @@ function cleanup_term(terms) {
                 t2 = terms[j]
                 if(j != i && t2.indexOf(t) != -1) {
                     to_remove.push(j)
-                    console.log('as')
                 }
             }
         }
@@ -324,6 +324,7 @@ function preselect_rip_info_from_filename(filename, element) {
     filename = filename.replace(/[\(\)\.\/\]\[\-_]/g, ' ')//.replace(/\d/g, ' ')
     filename_orignal_size = filename.split(' ')
     filename = filename.toLowerCase().split(' ')
+    
 
     for(i = 0; i < filename.length; i++) {
         t = filename[i]
@@ -361,7 +362,16 @@ function preselect_rip_info_from_filename(filename, element) {
         // sample
         if(!sample_warning && t == 'sample') {
             sample_warning = true
-            $(element).insert('<small class="warning">this might be a sample</small>')
+            $(element).insert('<small class="warning">don\'t add samples</small>')
+        }
+
+    }
+    if(!sample_warning) {
+        duration = parseInt(element.down('.duration').innerHTML)
+        if(isNaN(duration) || duration == 0) {
+            $(element).insert('<small class="warning">sure it is a real movie and not a sample or something like that?</small>')
+        } else if(duration < 900) {
+            $(element).insert('<small class="warning">short movie duration. sure it is a real movie and not a sample or something like that?</small>')
         }
     }
 }
@@ -484,7 +494,7 @@ function set_omdb(id) {
 function installExtension(aEvent, extensionName, iconURL) {
     var params = new Object()
     params[extensionName] =
-        {
+    {
         URL: aEvent.target.href,
         IconURL: iconURL,
         toString: function () {
@@ -496,9 +506,14 @@ function installExtension(aEvent, extensionName, iconURL) {
 }
 
 
-function hide_samples() {
+function toggle_samples() {
     $$('.part').each(function(e) {
         if(e.innerHTML.toLowerCase().indexOf('sample') > -1)
-            e.remove()
+            e.toggle()
     })
+    toggle_samples_text = 'hide samples'
+    if($('toggle_samples').innerHTML == toggle_samples_text) {
+        toggle_samples_text = 'show samples'
+    }
+    $('toggle_samples').innerHTML = toggle_samples_text
 }

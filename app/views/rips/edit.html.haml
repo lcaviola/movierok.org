@@ -1,6 +1,6 @@
 - rip_name = (@rip.movie) ? @rip.movie.title : 'this rip'
 %h2
   Editing
-  =link_to rip_name, rip_path(@rip)
+  =link_to rip_name, rip_path(@rip), :id => 'editing_rip_title'
 
 = render :partial => 'form'

@@ -5,3 +5,4 @@
   = link_to_function '<span>&nbsp;</span>', 'remove_part(this)', :class => 'remove_part_link', :style => display_none_add_link
   %span.mrokhash>= part.mrokhash
   %input{:type => 'hidden', :name => 'rip[mrokhashes][]', :value => part.mrokhash}>
+  %span.duration{:style => 'display: none'}= part.duration

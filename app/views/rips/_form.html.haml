@@ -4,7 +4,7 @@
 - unless logged_in_user.unknown_parts.empty?
   %p{:style => 'margin-top: 10px'}
     %span{:style => 'float:left'} choose a file and tell movierok to which movie it belongs
-    = link_to_function 'hide samples', 'hide_samples()', :style => 'float:right'
+    = link_to_function 'hide samples', 'toggle_samples()', :style => 'float:right', :id => 'toggle_samples'
   %ol#unknown_parts
     - parts = unknown_parts(@rip)
     - unless parts.empty?

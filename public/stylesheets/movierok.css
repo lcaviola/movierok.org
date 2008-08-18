@@ -531,8 +531,11 @@ visibility:hidden;
 .warning {
     background: url(/images/icons/error.png) no-repeat 0px 1px;
     padding-left: 20px;
-    color: lightgray;
+    color: #fdf9e7;
+    font-weight: bold;
+    display: block;
     margin-left: 10px;
+    margin-bottom: 5px;
 }
 
 #rip_form .text_field, #rip_form select, #rip_form textarea {
