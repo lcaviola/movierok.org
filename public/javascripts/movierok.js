@@ -26,8 +26,10 @@ Event.observe(window, 'load', function() {
         if($('rip_form')) {
             prepare_rip_forms()
             if($('toggle_samples'))
-              toggle_samples()
+                toggle_samples()
         }
+
+        insert_extension_warning()
     
         init_stars('audio_rating')
         init_stars('video_rating')
@@ -517,4 +519,19 @@ function toggle_samples() {
         toggle_samples_text = 'show samples'
     }
     $('toggle_samples').innerHTML = toggle_samples_text
+}
+
+function insert_extension_warning() {
+    if(/firefox\/3/.test(navigator.userAgent.toLowerCase())) {
+        if($$('meta[name=movierok.ff]').length == 0) {
+            $('container').insert( {
+                top: '<div id="ext_warning"><span class="warning">please install the <a href="/help">extension</a></span></div>'
+            } )
+        }
+    } else {
+        $('container').insert( {
+            top: '<div id="ext_warning"><span class="warning">you need <a href="http://mozilla.com/">firefox 3</a> to use movierok</span></div>'
+        } )
+      
+    }
 }
