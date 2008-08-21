@@ -17,7 +17,7 @@ module ApplicationHelper
   
   def link_to_firefox_extension(version)
     link_to 'firefox extension', "/firefox_extension/movierok-#{version}.xpi", :class => 'extension',
-      :onclick => "return installExtension(event, 'movierok', 'http://movierok.org/images/logo64.png')"
+      :onclick => "return installExtension(event, 'movierok', 'http://movierok.org/images/movierok_logo_64x64_black.png')"
   end
   
   def include_all_javascript_files

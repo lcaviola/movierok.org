@@ -29,7 +29,7 @@ Event.observe(window, 'load', function() {
                 toggle_samples()
         }
         if(is_logged_in())
-          insert_extension_warning()
+           insert_extension_warning()
     
         init_stars('audio_rating')
         init_stars('video_rating')
@@ -523,12 +523,13 @@ function toggle_samples() {
 
 function insert_extension_warning() {
     if(/firefox\/3/.test(navigator.userAgent.toLowerCase())) {
-        if($$('meta[name=movierok.ff]').length == 0) {
+        if($$('meta[name=movierok.ff.version]').length == 0) {
             $('container').insert( {
                 top: '<div id="ext_warning"><span class="warning">please install the <a href="/help">extension</a></span></div>'
             } )
         } else {
-            $$('.only_when_extension').each(function(e){e.style.display = 'inline'})
+            if($$('meta[name=movierok.ff.status]').length > 0 && ($$('meta[name=movierok.ff.status]')[0]['content'] == 'on')) 
+              $$('.only_when_extension').each(function(e){e.style.display = 'inline'})
         }
     } else {
         $('container').insert( {
