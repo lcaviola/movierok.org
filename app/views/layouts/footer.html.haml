@@ -13,8 +13,9 @@
       = link_to 'login/signup', new_user_path
     %span.only_when_logged_in
       = link_to 'help', help_path
-      &bull;
-      = link_to 'add rip', new_rip_path
+      %span.only_when_extension
+        &bull;
+        = link_to 'add rip', new_rip_path
       &bull;
       = link_to 'settings', '/', :id => 'settings_link'
       &bull;

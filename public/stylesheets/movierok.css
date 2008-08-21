@@ -359,7 +359,7 @@ div.auto_complete ul strong.highlight {
   font-weight: bold;
 }
 
-.only_when_logged_in, .only_when_owner {
+.only_when_logged_in, .only_when_owner, .only_when_extension {
   display: none;
 }
 

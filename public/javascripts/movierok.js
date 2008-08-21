@@ -527,6 +527,8 @@ function insert_extension_warning() {
             $('container').insert( {
                 top: '<div id="ext_warning"><span class="warning">please install the <a href="/help">extension</a></span></div>'
             } )
+        } else {
+            $$('.only_when_extension').each(function(e){e.style.display = 'inline'})
         }
     } else {
         $('container').insert( {
