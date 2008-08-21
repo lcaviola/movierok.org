@@ -28,8 +28,8 @@ Event.observe(window, 'load', function() {
             if($('toggle_samples'))
                 toggle_samples()
         }
-
-        insert_extension_warning()
+        if(is_logged_in())
+          insert_extension_warning()
     
         init_stars('audio_rating')
         init_stars('video_rating')
