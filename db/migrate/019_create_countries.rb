@@ -45,6 +45,7 @@ class CreateCountries < ActiveRecord::Migration
     Country.create(:iso_3166 => 'in', :name => 'India')
     Country.create(:iso_3166 => 'ba', :name => 'Bosnia and Herzegovina')
     Country.create(:iso_3166 => 'za', :name => 'South Africa')
+    Country.create(:iso_3166 => 'mx', :name => 'Mexico')
     
   end
   

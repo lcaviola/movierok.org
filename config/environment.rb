@@ -135,4 +135,4 @@ $types = ['DVD-Rip', 'Cam-Rip', 'Telesync', 'Screener', 'R5', 'Telecine', 'Workp
 $ratings = [:video, :audio, :movie]
 
 # don't forget to remove the cache when changing this
-$compatible_ff_ext_versions = ['0.1.9', '0.2', '0.2.1']
+$compatible_ff_ext_versions = ['0.1.9', '0.2', '0.2.1', '0.2.1.1']
