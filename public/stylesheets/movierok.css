@@ -200,6 +200,12 @@ dl dd {
   margin-left: 1em;
 }
 
+
+.stats dt {
+    width: 100px;
+    float: left;
+}
+
 #rips img {
   height: 85px;
   float: left;
