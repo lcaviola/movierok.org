@@ -1,0 +1,10 @@
+%h4 comments
+- unless @rip.comments.empty?
+  %ol#comment_list
+    - for comment in @rip.comments
+      %li
+        =link_to(comment.user.name, user_path(comment.user), :class => 'author')
+        %div.content= simple_format auto_link(h(comment.content))
+  %br
+  %br{:style => 'clear: both'}
+=render 'comments/new'

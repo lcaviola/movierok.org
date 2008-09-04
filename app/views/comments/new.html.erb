@@ -1,0 +1,12 @@
+&nbsp;<%= link_to_function 'write a comment', '$("comment_box").toggle()', :id => 'write_comment_link', :class => 'only_when_logged_in' %>
+
+<div id="comment_box" style="display: none">
+  <label for="comment_content">your comment</label>
+  <% @comment ||= Comment.new %>
+  <% form_for([@rip, @comment]) do |f| %>
+    <%= f.error_messages %>
+    <%= f.text_area :content %>
+    <%= f.submit "Create" %>
+  <% end %>
+</div>
+<br /><br />
