@@ -1,9 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  
+   
   map.resources :rips, 
     :collection => {'covers' => :get, 'releasers' => :get},
     :member => {'versions' => :get, 'restore' => :put},
-    :has_many => :ratings
+    :has_many => [:ratings, :comments]
   
   map.resources :parts,
     :collection => {'remove' => :put, 'incomplete' => :get, 'complete' => :put}

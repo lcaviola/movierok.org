@@ -7,6 +7,7 @@ class Rip < ActiveRecord::Base
   has_and_belongs_to_many :languages
   has_and_belongs_to_many :subtitles, :class_name => 'Language', :join_table => 'rips_subtitles'
   has_many :ratings
+  has_many :comments
   
   validates_presence_of :movie_id, :message => "is not valid or doesn't exist on OMDB"
   validates_presence_of :editor_id

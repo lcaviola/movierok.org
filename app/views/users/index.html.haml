@@ -11,12 +11,9 @@
     %dd= Part.count
     %dt movies
     %dd= Movie.count
-    %dt users
-    %dd= User.count
     %dt releasers
     %dd= Rip.find(:all, :select => 'releaser', :group => 'releaser').size
 
-  %br
   %br
   %table#users_table{:summary => "This table shows all users on movierok, shows how many rips they've got and how many they've created"}
     %caption top 5 users on movierok

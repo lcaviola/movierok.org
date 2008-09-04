@@ -202,8 +202,8 @@ dl dd {
 
 
 .stats dt {
-    width: 100px;
-    float: left;
+  width: 100px;
+  float: left;
 }
 
 #rips img {
@@ -1014,4 +1014,40 @@ visibility:hidden;
 
 .no_movie {
   color: #4D4D4D;
+}
+
+#comment_content {
+  height: 60px;
+  width: 600px;
+  }
+
+#comment_submit {
+  position: relative;
+  right: -5px;
+  top: -5px;
+}
+
+.dark_text {
+  color: gray;
+}
+
+#comment_list {
+  list-style-type: none;
+  clear: both;
+}
+
+#comment_list li {
+  margin-top: 5px;
+  clear: both;
+}
+
+#comment_list li .content {
+ float: left;
+}
+
+#comment_list li .author {
+  margin-right: 10px;
+  font-weight: bold;
+  display: block;
+  float: left;
 }

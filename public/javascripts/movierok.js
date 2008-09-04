@@ -51,6 +51,17 @@ Event.observe(window, 'load', function() {
         if($('parts')) {
             Sortable.create('parts')
         }
+
+        if($('comment_content')) {
+            $('comment_content').addClassName('dark_text')
+            $('comment_content').value = 'leave a note related to this rip\ndon\'t post direct download links'
+            $('comment_content').onfocus = function() {
+                if($('comment_content').hasClassName('dark_text')){
+                    $('comment_content').removeClassName('dark_text')
+                    $('comment_content').value = ''
+                }
+            }
+        }
     }
 });
 

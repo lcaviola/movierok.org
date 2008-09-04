@@ -9,10 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080817150015) do
+ActiveRecord::Schema.define(:version => 20080903112656) do
 
   create_table "categories", :force => true do |t|
     t.integer "parent_id", :limit => 11
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id",    :limit => 11, :null => false
+    t.integer  "rip_id",     :limit => 11, :null => false
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "countries", :force => true do |t|
@@ -175,12 +183,15 @@ ActiveRecord::Schema.define(:version => 20080817150015) do
     t.datetime "updated_at"
   end
 
+  create_table "schema_info", :id => false, :force => true do |t|
+    t.integer "version", :limit => 11
+  end
+
   create_table "users", :force => true do |t|
-    t.string   "name",                              :null => false
-    t.string   "hashed_password",                   :null => false
+    t.string   "name",            :null => false
+    t.string   "hashed_password", :null => false
     t.string   "email"
-    t.string   "salt",                              :null => false
-    t.boolean  "public_rips",     :default => true, :null => false
+    t.string   "salt",            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -69,6 +69,10 @@
 
   = render :partial => 'departments'
 
+
+%div{:style => 'clear:both'}
+  = render 'comments/index'
+
 %div{:style => 'clear:both'}
   - if @rip.movie.rips.length > 1
     %h4 other rips
