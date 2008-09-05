@@ -1,0 +1,58 @@
+%h2{:id => 'movierok.do', :style=>'border-left: 1px solid white;padding: 20px;'} movierok.do
+movierok.do is a 
+%a{:href=> 'http://do.davebsd.com'}
+  Gnome Do 
+plugin the fast and simple way to start your movies. The plugin is a open source project developed by the movierok team.
+
+%br
+%br
+#movierok_do_more{:style=> 'display:none'}
+  %h3 Requirements
+  To install and use movierk.do you need following requirements:
+  %ul
+    %li
+      Linux with Gnome Do installed
+    %li
+      movierok.ff installed
+  %br
+  %br
+
+  %h3 Installation
+  Until movierok.do gets into the official plugin repository for Gnome Do you have to do it the 'old school' way:
+  %ul
+    %li
+      download xul and dll
+    %li
+      put them into plugin folder
+      %br (e.g. ~/.local/share/gnome-do/plugins or ~/.local/share/gnome-do/plugins-0.6.0)
+    %li
+      restart Gnome Do
+  %br
+  %br
+  %h3 Usage
+  %ul
+    %li
+      Configure the plugin
+      %br
+      =image_tag('clients/movierok_do_config.png')
+      %br
+      Set your movierok username and select your player. Now close the Configuration windows and wait some minutes (until downloading rip list and indexing is finished).
+    %li
+      Now start Gnome Do (e.g. super + space) and type a string until a rip is selected.
+      =image_tag('clients/movierok_do_play.png')
+    %li
+      Here you can play the movie in your player or visit the rip page on movierok.org.
+  %br
+  %br
+  %h3 Other
+  For further information and source code visit
+  %a{:href=> 'http://github.com/mordaroso/movierok.do'}
+    movierok.do @ github.
+  /.
+  %br
+  %br
+
+%a{:id=>'movierok_do_show', :style => 'cursor:pointer;', :onclick=> 'Effect.BlindDown(\'movierok_do_more\'); $(\'movierok_do_show\').hide(); $(\'movierok_do_hide\').show(); return false'}
+  show more...
+%a{:id=>'movierok_do_hide', :style => 'cursor:pointer;display:none', :onclick=> 'Effect.SlideUp(\'movierok_do_more\');$(\'movierok_do_hide\').hide(); $(\'movierok_do_show\').show(); return false'}
+  show less...

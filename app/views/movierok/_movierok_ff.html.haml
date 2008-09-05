@@ -1,0 +1,102 @@
+%h2{:id => 'movierok.ff', :style=>'border-left: 1px solid white;padding: 20px;'} movierok.ff
+movierok.ff is a 
+%a{:href=> 'http://getfirefox.com'}
+  Firefox 
+Extension and the official client for movierok. The Extension is a open source project developed by the movierok team.
+%br
+%br
+movierok.ff provides the following features:
+%ul
+  %li
+    %strong
+      scan
+    harddisk for moviefiles
+  %li
+    %strong
+      synchronize
+    with movierok.org
+  %li
+    %strong
+      collect
+    metainfo (e.g. codec) from moviefiles
+  %li
+    %strong
+      play
+    movies directly form movierok.org
+%br
+
+#movierok_ff_more{:style=> 'display:none'}
+  %h3 Installation
+  %ul
+    %li
+      Open following link to install the movierok extension: 
+      %br
+      = link_to_firefox_extension('0.2.1.1')
+    %li
+      Click on Allow to proceed
+      %br
+      =image_tag('clients/movierok_ff_allow.png')
+    %li
+      Click on Install now to start the installation
+      %br
+      =image_tag('clients/movierok_ff_install.png')
+    %li
+      Restart your Firefox
+  %br
+
+  %h3 Usage
+  %ul
+    %li
+      %strong
+        Settings
+      %br
+      To use movierok.ff you have to change the settings.
+      %br
+      Right click on the movierok logo on the right bottom of your firefox. Select Settings... to open the settings window.
+      %br   
+      =image_tag('clients/movierok_ff_menu.png')
+      %br
+      %br
+      Here you can set your movie folders and the path to your player.
+      %br    
+      =image_tag('clients/movierok_ff_settings.png')
+      %br
+      After changing the movie folders a rescan will automatically begin
+      %br
+      %br
+    %li
+      %strong
+        Rescan
+      %br
+      A rescan goes through all movie folders and subfolders and looks for moviefiles, generates hashes and collects metadata.
+      %br
+      To start a rescan right click on the movierok logo on the right bottom of your firefox and select 
+      =image_tag('clients/movierok_ff_rescan.png')
+      \. 
+      %br
+      Now the rescan will proceed. This can take some time.
+      %br
+      =image_tag('clients/movierok_ff_parsing.png')
+      %br
+      %br
+      Visit the 
+      %a{:href=> 'http://github.com/mordaroso/movierok.ff/wikis/dirparser'}
+        Wiki
+      if you want to know more about the rescan.
+
+  %br
+  %br
+
+  %h3 Other
+  For further information and source code visit
+  %a{:href=> 'http://github.com/mordaroso/movierok.ff'}
+    movierok.ff @ github.
+  /.
+  %br
+  %br
+
+%a{:id=>'movierok_ff_show', :style => 'cursor:pointer;', :onclick=> 'Effect.BlindDown(\'movierok_ff_more\');$(\'movierok_ff_show\').hide(); $(\'movierok_ff_hide\').show(); return false'}
+  show more...
+%a{:id=>'movierok_ff_hide', :style => 'cursor:pointer;display:none', :onclick=> 'Effect.SlideUp(\'movierok_ff_more\');$(\'movierok_ff_hide\').hide(); $(\'movierok_ff_show\').show(); return false'}
+  show less...
+

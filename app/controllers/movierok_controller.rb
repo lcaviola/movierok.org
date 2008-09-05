@@ -1,7 +1,7 @@
 class MovierokController < ApplicationController
 
   before_filter :authorize, :only => :help
-  caches_page :ffextversion
+  caches_page :ffextversion, :clients
 
   def index
     if logged_in_user
@@ -12,6 +12,9 @@ class MovierokController < ApplicationController
   end
 
   def about
+  end
+
+  def clients
   end
 
   def help
