@@ -1,11 +1,5 @@
 %div{:style => 'margin: 20px'}
 
-  - if logged_in_user
-    %p 
-      for more information go to the
-      = link_to 'help page', help_url
-    %br
-  
   %h2#whatis What is movierok?
   %div{:style => 'border-left: white solid 1px; padding: 20px; margin: 20px; margin-left: 0'}
     %p
@@ -36,7 +30,10 @@
       but for movies
     %li will always remain free and open
     %li needs you to install a firefox extension
-    %li provides webservices so other programs can use it
+    %li
+      provides webservices so 
+      =link_to 'other programs', clients_url
+      can use it
     %li
       already counts
       = Rip.count
