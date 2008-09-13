@@ -1,26 +1,11 @@
-%h1 Clients
-Here is a list of all available clients for movierok.
-%ul
-  %li
-    %strong
-      = link_to 'movierok.ff', :controller=>'movierok', :action=>'clients', :anchor=>'movierok.ff'
-    %br
-    Firefox Extension
-  %li
-    = link_to 'movierok.do', :controller=>'movierok', :action=>'clients', :anchor=>'movierok.do'
-    %br
-    Gnome Do plugin
-%br
-Feel free to develop your own client and let us know about it so we can list it on this page. 
-%br
-%br
-%hr
-%br
-%br
-= render :partial => 'movierok_ff'
-%br
-%br
-%hr
-%br
-%br
-= render :partial => 'movierok_do'
+%h1 movierok clients
+
+%p
+  %strong movierok isn't just a website
+%p every application can make usage of the information movierok provides by using our open webservices.
+%p feel free to develop your own client and let us know about it so we can list it on this page. 
+
+%ul#clients
+  %li= render :partial => 'movierok_ff'
+  %li= render :partial => 'movierok_do'
+

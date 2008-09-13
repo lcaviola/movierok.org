@@ -1,21 +1,16 @@
-%h2{:id => 'movierok.do', :style=>'border-left: 1px solid white;padding: 20px;'} movierok.do
-movierok.do is a 
-%a{:href=> 'http://do.davebsd.com'}
-  Gnome Do 
-plugin the fast and simple way to start your movies. The plugin is a open source project developed by the movierok team.
+%h2 Gnome Do Plugin
+The fast and simple way to search for your movies using 
+%a{:href=> 'http://do.davebsd.com'} Gnome Do.
+%p The plugin is an open source project developed by the movierok team.
 
-%br
-%br
 #movierok_do_more{:style=> 'display:none'}
   %h3 Requirements
-  To install and use movierk.do you need following requirements:
+  you need
   %ul
     %li
-      Linux with Gnome Do installed
+      Linux with Gnome and Gnome Do installed
     %li
       movierok.ff installed
-  %br
-  %br
 
   %h3 Installation
   Until movierok.do gets into the official plugin repository for Gnome Do you have to do it the 'old school' way:
@@ -23,12 +18,12 @@ plugin the fast and simple way to start your movies. The plugin is a open source
     %li
       download xul and dll
     %li
-      put them into plugin folder
-      %br (e.g. ~/.local/share/gnome-do/plugins or ~/.local/share/gnome-do/plugins-0.6.0)
+      put them into the plugin folder
+      %br
+      %code  (e.g.~/.local/share/gnome-do/plugins or ~/.local/share/gnome-do/plugins-0.6.0)
     %li
       restart Gnome Do
-  %br
-  %br
+
   %h3 Usage
   %ul
     %li
@@ -36,19 +31,17 @@ plugin the fast and simple way to start your movies. The plugin is a open source
       %br
       =image_tag('clients/movierok_do_config.png')
       %br
-      Set your movierok username and select your player. Now close the Configuration windows and wait some minutes (until downloading rip list and indexing is finished).
+      Set your movierok username and select your player. Now close the configuration window and wait some minutes (until indexing is finished).
     %li
-      Now start Gnome Do (e.g. super + space) and type a string until a rip is selected.
+      Now start Gnome Do (e.g. super + space) and search for a movie title
       =image_tag('clients/movierok_do_play.png')
     %li
-      Here you can play the movie in your player or visit the rip page on movierok.org.
-  %br
-  %br
-  %h3 Other
-  For further information and source code visit
-  %a{:href=> 'http://github.com/mordaroso/movierok.do'}
-    movierok.do @ github.
-  /.
+      you can play the movie or visit the rip page on movierok.org.
+
+  %h3 More
+  For further information and the source code visit&nbsp;
+  %a{:href=> 'http://github.com/mordaroso/movierok.do'}> movierok.do @ github
+  \.
   %br
   %br
 

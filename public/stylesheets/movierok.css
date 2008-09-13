@@ -194,6 +194,7 @@ li {
 
 dl dt {
   font-weight: bold;
+  clear: both;
 }
 
 dl dd {
@@ -1042,7 +1043,7 @@ visibility:hidden;
 }
 
 #comment_list li .content {
- float: left;
+ margin-left: 80px;
 }
 
 #comment_list li .author {
@@ -1050,4 +1051,26 @@ visibility:hidden;
   font-weight: bold;
   display: block;
   float: left;
+}
+
+#clients {
+  margin: 30px 0;
+}
+
+#clients>li {
+  margin: 10px;
+  padding-left: 20px;
+  list-style-type: none;
+  border-bottom: white solid 1px;
+  padding-bottom: 20px;
+}
+
+#clients h2 {
+  margin-left: -10px;
+  margin-bottom: 5px;
+}
+
+#clients h3 {
+  margin-top: 20px;
+  margin-bottom: 5px;
 }

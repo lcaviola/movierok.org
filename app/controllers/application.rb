@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
     cookies[:user_name] = logged_in_user.name if logged_in_user
     cookies[:user_name] = nil if not logged_in_user and cookies[:user_name]
   end
-
+  
+  def remove_cache_pages(id)
+    caches = Dir.glob(RAILS_ROOT + "/public/rips/#{id}{-,.}*")
+    FileUtils.rm caches
+  end
   
 end

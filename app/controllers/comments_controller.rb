@@ -6,7 +6,9 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment])
     @comment.rip = rip
     @comment.user = logged_in_user  
-    @comment.save
+    if @comment.save
+      remove_cache_pages(rip.id) if rip
+    end
     redirect_to(rip)
   end
 

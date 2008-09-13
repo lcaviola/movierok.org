@@ -71,11 +71,6 @@ class PartsController < ApplicationController
     end
   end
 
-  def remove_cache_pages(id)
-    caches = Dir.glob(RAILS_ROOT + "/public/rips/#{id}{-,.}*")
-    FileUtils.rm caches
-  end
-
   def update_user_in_field(o = {})
     unless o[:part].rip_id.blank?
       hits = o[:index].search("id:#{o[:part].rip_id}").hits
