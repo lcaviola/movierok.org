@@ -3,6 +3,7 @@ class RipsController < ApplicationController
   before_filter :authorize, :except => [:index, :show, :covers]
   before_filter :set_editor_id, :only => [:create, :update]
   before_filter :authorize_as_rip_owner, :only => [:edit, :update, :restore]
+  before_filter :find_by_mrokhash, :only => [:index]
   
   caches_page :show
   cache_sweeper :rip_sweeper, :only => [:update, :create, :restore]
@@ -118,6 +119,21 @@ class RipsController < ApplicationController
   def authorize_as_rip_owner
     rip = Rip.find(params[:id])
     redirect_to rip_url(rip) unless logged_in_user.has_rip?(rip)
+  end
+
+  def find_by_mrokhash
+    if params[:mrokhash]
+      rips = Rip.find_by_mrokhash(params[:mrokhash])
+      unless rips.empty?
+        # TODO: how nicer?
+        format = '.xml' if params[:format] == 'xml'
+        format ||= ''
+        redirect_to rip_url(rips.first) + format
+      else
+        head :not_found
+      end
+      false
+    end
   end
   
 end
