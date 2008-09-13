@@ -100,8 +100,9 @@ class Rip < ActiveRecord::Base
     search << " AND user:#{user}" if user
 
     sort = (params[:sort] and params[:sort] == 'title') ? :title : :id
+    searchtype = (sort == :title) ? :string : :integer 
     reverse = !(params[:order] and params[:order] == 'down')
-    options[:sort] = Ferret::Search::SortField.new(sort, :reverse => reverse)
+    options[:sort] = Ferret::Search::SortField.new(sort, :type => searchtype, :reverse => reverse)
 
     Rip.find_with_ferret(search, options)
   end
