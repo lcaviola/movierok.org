@@ -18,7 +18,10 @@ class User < ActiveRecord::Base
   end
   
   def has_rip?(rip)
-    parts.include? rip.parts.first
+    for p in rip.parts
+      return true if parts.include? p
+    end
+    false
   end
   
   def password
@@ -39,6 +42,11 @@ class User < ActiveRecord::Base
   
   def to_param
     self.name
+  end
+
+  def rips
+    Rip.find(:all, :include => :movie,:joins => 'inner join parts on parts.rip_id = rips.id inner join parts_users on parts_users.part_id = parts.id ', 
+      :conditions => [ 'parts_users.user_id = ?', id], :group => 'rips.id', :order => 'rips.id DESC')
   end
   
   def created_rips_in_percent(total_rips = Rip.count)

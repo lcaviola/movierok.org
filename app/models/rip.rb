@@ -59,7 +59,7 @@ class Rip < ActiveRecord::Base
   end
   
   def title
-    movie.title.replace_special_chars
+    movie.title.replace_special_chars.downcase
   end
   
   def genre
@@ -183,6 +183,7 @@ class Rip < ActiveRecord::Base
   
   def validate_correctness_of_parts
     for part in @part_files
+      errors.add_to_base("part belongs to another rip") if (not part.rip_id.nil? and part.rip_id != self.id)
       errors.add_to_base("some parts you've added couldn't be recognized as movies") unless part.real_movie_file?
     end
   end

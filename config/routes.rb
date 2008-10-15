@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # can you do this with has_many?
   map.resources :users do |user|
-    user.resources :rips, :collection => {'covers' => :get}
+    user.resources :rips, :collection => {'covers' => :get, 'all' => :get}
   end
 
   map.resources :ratings

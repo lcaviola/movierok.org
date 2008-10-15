@@ -21,7 +21,13 @@ class RipsController < ApplicationController
       format.json { render :json => @rips.to_json }
     end
   end
-  
+
+  # GET /users/<name>/rips/all.xml
+  def all
+    user = User.find_by_name params[:user_id]
+    @rips = user.rips
+  end
+
   # GET /rips/1
   # GET /rips/1.xml
   def show
