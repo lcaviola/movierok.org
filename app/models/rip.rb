@@ -15,7 +15,7 @@ class Rip < ActiveRecord::Base
   
   before_validation :associate_movie, :save_languages_and_subtitles, :prepare_parts
   before_save :save_parts
-  after_save :update_indexes, :update_graph
+  after_save :update_indexes, :update_graphs
     
   acts_as_ferret :fields => {
     :title => {:store => :yes},
@@ -171,13 +171,18 @@ class Rip < ActiveRecord::Base
   end
   alias_method_chain :changed?, :associations
   
-  def update_graph
+  def update_graphs
+    rips_line_graph
+    rips_pie_graph
+  end
+  
+  def rips_line_graph
     counts = []
     points = []
     date = Rip.find(:last, :order => 'created_at DESC').created_at
     until date > Time.now
-      date += 1.month
       points << date.strftime('%b')
+      date += 1.month
       counts << Rip.count(:conditions => ['created_at <= ?', date])
     end
 
@@ -187,7 +192,23 @@ class Rip < ActiveRecord::Base
     graph.add :line, 'rips', counts
     graph.point_markers = points
 
-    graph.render  :width => 600, :height => 200, :to => "public/rips_graph.png", :as => 'png'
+    graph.render  :width => 600, :height => 200, :to => "public/rips_line_graph.png", :as => 'png'
+  end
+  
+  def rips_pie_graph
+    graph = Scruffy::Graph.new
+    graph.renderer = Scruffy::Renderers::Pie.new
+    graph.title = 'rip creators'
+    items = Hash.new
+    topcount = 0
+    topusers = User.find_all_with_created_rips_count[0...5]
+    for user in topusers
+      topcount += user.created_rips_count
+      items[user.name] = user.created_rips_count
+    end
+    items['others'] = Rip.count - topcount
+    graph.add :pie, '', items
+    graph.render  :width => 600, :height => 200, :to => "public/rips_pie_graph.png", :as => 'png'
   end
 
   #
