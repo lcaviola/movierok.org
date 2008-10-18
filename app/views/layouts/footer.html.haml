@@ -5,11 +5,11 @@
     = link_to 'Creative Commons License', 'http://creativecommons.org/licenses/by-nc/3.0/', :rel => 'license'
  
   %div{:style => 'float:right'}
-    = link_to 'about', about_url
+    = link_to 'about', about_path
     &bull;
-    = link_to 'stats', users_url
+    = link_to 'stats', stats_path
     &bull;
-    = link_to 'clients', clients_url
+    = link_to 'clients', clients_path
     &bull;
     %span.only_when_not_logged_in
       = link_to 'login/signup', new_user_path

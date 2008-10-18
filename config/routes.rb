@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.clients 'clients', :controller => 'movierok', :action => 'clients'
   map.lost_password 'lost_password', :controller => 'users', :action => 'lost_password'
   map.help 'help', :controller => 'movierok', :action => 'help'
+  map.stats 'stats', :controller => 'movierok', :action => 'stats'
   map.ffextversion 'firefox_extension/compatible_versions.:format', :controller => 'movierok', :action => 'ffextversion'
   map.advanced_search 'advanced_search', :controller => 'movierok', :action => 'advanced_search'
   map.sitemap 'sitemap.:format', :controller => 'movierok', :action => 'sitemap'

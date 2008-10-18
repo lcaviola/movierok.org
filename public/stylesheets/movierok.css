@@ -201,8 +201,13 @@ dl dd {
   margin-left: 1em;
 }
 
+#stats {
+  margin-top: 20px;
+  float: left;
+  width: 270px; 
+}
 
-.stats dt {
+#stats dt {
   width: 100px;
   float: left;
 }
@@ -346,6 +351,7 @@ div.auto_complete ul strong.highlight {
 }
 
 #users_table {
+  float: left;
   caption-side: bottom;
   empty-cells: hide;
   border-collapse:collapse;
@@ -1020,7 +1026,7 @@ visibility:hidden;
 #comment_content {
   height: 60px;
   width: 600px;
-  }
+}
 
 #comment_submit {
   position: relative;
@@ -1043,7 +1049,7 @@ visibility:hidden;
 }
 
 #comment_list li .content {
- margin-left: 80px;
+  margin-left: 80px;
 }
 
 #comment_list li .author {

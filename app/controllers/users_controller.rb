@@ -3,12 +3,6 @@ class UsersController < ApplicationController
   before_filter :authorize_as_user, :only => [:edit, :update]
   before_filter :not_logged_in, :only => [:new, :create]
   
-  # GET /users
-  # GET /users.xml
-  def index
-    @users = User.find_all_with_created_rips_count
-  end
-
   # GET /users/1
   # GET /users/1.xml
   def show

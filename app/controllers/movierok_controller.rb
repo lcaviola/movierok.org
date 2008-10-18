@@ -20,6 +20,10 @@ class MovierokController < ApplicationController
   def help
   end
 
+  def stats
+    @users = User.find_all_with_created_rips_count
+  end
+
   def sitemap
     @rips = Rip.find(:all, :select => 'id, movie_id', :include => :movie)
     headers["Content-Type"] = 'application/xml'
