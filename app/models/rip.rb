@@ -15,7 +15,7 @@ class Rip < ActiveRecord::Base
   
   before_validation :associate_movie, :save_languages_and_subtitles, :prepare_parts
   before_save :save_parts
-  after_save :update_indexes
+  after_save :update_indexes, :update_graph
     
   acts_as_ferret :fields => {
     :title => {:store => :yes},
@@ -171,6 +171,24 @@ class Rip < ActiveRecord::Base
   end
   alias_method_chain :changed?, :associations
   
+  def update_graph
+    counts = []
+    points = []
+    date = Rip.find(:last, :order => 'created_at DESC').created_at
+    until date > Time.now
+      date += 1.month
+      points << date.strftime('%b')
+      counts << Rip.count(:conditions => ['created_at <= ?', date])
+    end
+
+    graph = Scruffy::Graph.new
+    graph.title = 'rip count on movierok'
+    graph.renderer = Scruffy::Renderers::Standard.new
+    graph.add :line, 'rips', counts
+    graph.point_markers = points
+
+    graph.render  :width => 600, :height => 200, :to => "public/rips_graph.png", :as => 'png'
+  end
 
   #
   private
@@ -240,8 +258,5 @@ class Rip < ActiveRecord::Base
     Float(ratings.collect(&:rating).inject(&:+).to_i) / Float(ratings.length)
   end
   
-  
-  
-
   
 end

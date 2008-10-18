@@ -1,6 +1,6 @@
 class RipsController < ApplicationController
-  
-  before_filter :authorize, :except => [:index, :show, :covers]
+
+  before_filter :authorize, :except => [:index, :show, :covers, :all]
   before_filter :set_editor_id, :only => [:create, :update]
   before_filter :authorize_as_rip_owner, :only => [:edit, :update, :restore]
   before_filter :find_by_mrokhash, :only => [:index]

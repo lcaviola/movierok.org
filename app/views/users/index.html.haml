@@ -32,3 +32,6 @@
           %td= Rip.get(:user => user.name).total_hits
           %td= user.created_rips_count
           %td= user.created_rips_in_percent(total_rips)
+
+  %br
+  =image_tag('/rips_graph.png')
