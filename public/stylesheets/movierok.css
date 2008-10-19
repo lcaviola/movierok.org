@@ -7,7 +7,7 @@
 body {
   font-family: verdana;
   color: #FFEFEF;
-  background: url(/images/stripes.png) repeat;
+  background: url(/images/stripes.png);
 
 }
 
@@ -18,7 +18,7 @@ body {
 }
 
 #box { 
-  background: #282828 url(/images/box.png) repeat-x;
+  background: #0a0a0a url(/images/box.png) repeat-x;
 
   margin: 0 auto;
   padding: 25px;
@@ -48,7 +48,7 @@ body {
   float: left;
 
   margin: 0;
-  background-color: #282828;
+  background-color: #0a0a0a;
   -moz-border-radius-topright: 20px;
   -moz-border-radius-topleft: 20px;
 
@@ -58,7 +58,7 @@ body {
 
 .selected_tab {
   color: red !important;
-  background-color: #4D4D4D !important;
+  background-color: #282828 !important;
 }
 
 #menu li a {
