@@ -975,9 +975,9 @@ visibility:hidden;
 
 
 #advanced_search {
-  background-color: #4D4D4D;
+  background-color: #282828;
   position: absolute;
-  top: 80px;
+  top: 70px;
   z-index: 2;
   width: 850px;
   padding: 10px 0;
