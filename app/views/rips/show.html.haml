@@ -2,7 +2,7 @@
   %h1{:style => 'float: left'}
     = link_to @rip.movie.title, rip_path(@rip)
     - if @rip.movie.year
-      == (#{@rip.movie.year})
+      = @rip.movie.year
 
   %div{:style => 'float:right'}
     %span.play_link.main_rip= @rip.parts.collect(&:mrokhash).join('+')
