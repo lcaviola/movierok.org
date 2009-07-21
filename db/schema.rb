@@ -44,13 +44,6 @@ ActiveRecord::Schema.define(:version => 20080903112656) do
     t.datetime "updated_at"
   end
 
-  create_table "friendships", :force => true do |t|
-    t.integer  "user_id",    :limit => 11, :null => false
-    t.integer  "friend_id",  :limit => 11, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "genres", :force => true do |t|
     t.string   "name",                     :null => false
     t.integer  "omdb",       :limit => 11, :null => false
@@ -117,12 +110,12 @@ ActiveRecord::Schema.define(:version => 20080903112656) do
     t.string   "audio_encoding"
     t.string   "video_encoding"
     t.string   "video_resolution"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "md5"
     t.string   "sha1"
-    t.boolean  "movie_file_meta_data",               :default => false
     t.string   "container"
+    t.boolean  "movie_file_meta_data",               :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "parts_users", :id => false, :force => true do |t|
@@ -183,15 +176,11 @@ ActiveRecord::Schema.define(:version => 20080903112656) do
     t.datetime "updated_at"
   end
 
-  create_table "schema_info", :id => false, :force => true do |t|
-    t.integer "version", :limit => 11
-  end
-
   create_table "users", :force => true do |t|
     t.string   "name",            :null => false
     t.string   "hashed_password", :null => false
-    t.string   "email"
     t.string   "salt",            :null => false
+    t.string   "email",           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
