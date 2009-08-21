@@ -20,12 +20,12 @@ config.action_controller.fragment_cache_store = :file_store, 'tmp/cache'
 # config.action_mailer.raise_delivery_errors = false
 
 config.action_mailer.delivery_method = :smtp
-  
-config.action_mailer.smtp_settings = {           
-  :address => "mail.mordaroso.net" ,
+
+config.action_mailer.smtp_settings = {
+  :address => "mail.movierok.org" ,
   :port       => 25,
-  :domain => "mail.mordaroso.net" ,
+  :domain => "mail.movierok.org" ,
   :authentication => :login,
-  :user_name => 'web15p1' , 
-  :password  => "sudoasli"
+  :user_name => 'admin@movierok.org' ,
+  :password  => "sudoweb1337"
 }
