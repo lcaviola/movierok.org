@@ -1,6 +1,6 @@
 # Be sure to restart your web server when you modify this file.
 
-# Uncomment below to force Rails into production mode when 
+# Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
 # ENV['RAILS_ENV'] ||= 'production'
 
@@ -12,18 +12,18 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
 
-  config.action_controller.session = { 
-    :session_key => '_movierok.org_session_id', 
+  config.action_controller.session = {
+    :session_key => '_movierok.org_session_id',
     :secret => 'sd80ag7s89adg76s8adg6sdgjsadgjsad-husad7hsadhsadhh12481249812grf9g12f6tasf7awf',
-    :session_expires => Time.local(2009,'jan')  } 
+    :session_expires => Time.local(2038,'jan')  }
 
   config.load_paths += %W(#{RAILS_ROOT}/vendor/plugins/acts_as_versioned/lib)
   config.load_paths += %W(#{RAILS_ROOT}/app/sweepers)
-  
+
   #config.action_controller.page_cache_directory = RAILS_ROOT + "/public/cache/"
-  
+
   # Settings in config/environments/* take precedence over those specified here
-  
+
   # Skip frameworks you're not going to use (only works if using vendor/rails)
   # config.frameworks -= [ :action_web_service, :action_mailer ]
 
@@ -33,7 +33,7 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
-  # Force all environments to use the same logger level 
+  # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
 
@@ -42,7 +42,7 @@ Rails::Initializer.run do |config|
   # config.action_controller.session_store = :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
-  # This is necessary if your schema can't be completely dumped by the schema dumper, 
+  # This is necessary if your schema can't be completely dumped by the schema dumper,
   # like if you have constraints or database-specific column types
   # config.active_record.schema_format = :sql
 
@@ -51,7 +51,7 @@ Rails::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
-  
+
   # See Rails::Configuration for more options
 end
 
@@ -59,8 +59,8 @@ end
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :default => '%b %d %Y'
 )
-  
-# Add new inflection rules using the following format 
+
+# Add new inflection rules using the following format
 # (all these examples are active by default):
 # Inflector.inflections do |inflect|
 #   inflect.plural /^(ox)$/i, '\1en'
@@ -76,7 +76,7 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
 
 ##UPDATE FROM OMDB
 #movies = Movie.find(:all, :order => :updated_at, :limit => 100)
-#movies.each do |m| 
+#movies.each do |m|
 #  m.update_from_omdb
 #  m.rips.each(&:ferret_update) #totest
 #end
@@ -84,16 +84,16 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
 
 
 require 'scruffy'
-    
+
 class String
   def escape_single_quotes
     self.gsub(/[']/, '\\\\\'')
   end
-  
+
   def replace_special_chars
     self.gsub(/ü/, 'u').gsub(/ä/, 'a').gsub(/ö/, 'o').gsub(/[^a-zA-Z0-9:' \-_]+/, '')
   end
-  
+
   def replace_some_special_chars
     self.gsub(/ü/, 'u').gsub(/ä/, 'a').gsub(/ö/, 'o').gsub(/[^a-zA-Z0-9:' \*\|\-\+\~\(\)"_]+/, '')
   end
@@ -130,7 +130,7 @@ $genres = {
   'Road-Movie'      =>1115,
   'Science-Fiction' => 878,
   'Thriller'        =>53,
-  'Western'         => 37 
+  'Western'         => 37
 }
 $types = ['DVD-Rip', 'Cam-Rip', 'Telesync', 'Screener', 'R5', 'Telecine', 'Workprint']
 $ratings = [:video, :audio, :movie]
